@@ -7,6 +7,7 @@ import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 function App() {
   const { audioList, setAudioList } = useAudioListContext();
   const { currIndex } = useCurrentAudioContext();
+  
   const [currTitle, setCurrTitle] = useState<string | null>("");
   const [currLink, setCurrLink] = useState<string | null>("");
 
@@ -18,6 +19,7 @@ function App() {
     CurrentAudio(audioList[currIndex]?.title, audioList[currIndex]?.audioLink)
   }, [currIndex])
 
+  // check if there's data in the local storage
   useEffect(() => {
     const storedData = localStorage.getItem('audioList');
     if (storedData) {
@@ -26,10 +28,12 @@ function App() {
     }
   }, []);
 
+  // Set local storage on audio list change
   useEffect(() => { 
     localStorage.setItem("audioList", JSON.stringify(audioList));
   }, [audioList])
 
+  // resets the controls ui on empty audio list
   useEffect(() => {
     if(audioList.length === 0) { 
       setCurrTitle(null); 

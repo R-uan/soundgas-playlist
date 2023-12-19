@@ -4,11 +4,13 @@ import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 import { Pause, Play, Previous, Next, Down, Up } from "../assets/Media/MediaHelper"
 
 export default function Controls({ currentAudio } : { currentAudio: string | null }) {
-    const { audioList } = useAudioListContext();
-    const { currIndex, setCurrIndex } = useCurrentAudioContext();
-    const audioPlayerRef = useRef<HTMLAudioElement>(null);
-    const [currentVol, setCurrentVolume] = useState<number>(100);
-    const [isPlaying, setPlaying] = useState(false);
+  const { audioList } = useAudioListContext();
+  const { currIndex, setCurrIndex } = useCurrentAudioContext();
+
+  const audioPlayerRef = useRef<HTMLAudioElement>(null);
+  
+  const [isPlaying, setPlaying] = useState(false);
+  const [currentVol, setCurrentVolume] = useState<number>(100);
 
     function handleTogglePlay() {
         const audioPlayer = audioPlayerRef.current;
@@ -54,6 +56,7 @@ export default function Controls({ currentAudio } : { currentAudio: string | nul
       }
     };
 
+    // resets the ui if current audio is null
     useEffect(() => { 
       if(currentAudio == null){ 
         setPlaying(false); 
@@ -66,7 +69,7 @@ export default function Controls({ currentAudio } : { currentAudio: string | nul
             <audio ref={audioPlayerRef} onPlay={() => setPlaying(true)} src={currentAudio ? currentAudio : ""} onEnded={handleOnAudioEnd} autoPlay></audio>
             <div className="flex gap-5">
               {/* Play / Pause / Previous / Next */}
-              <div className="flex flex-row align-middle w-fit gap-3">
+              <div className="flex flex-row align-middle w-fit gap-10">
                 <button type="button" onClick={handlePreviousAudio}>
                   <img src={Previous} alt="Previous Audio" />
                 </button>
