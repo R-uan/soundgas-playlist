@@ -8,22 +8,23 @@ function App() {
   const { audioList, setAudioList } = useAudioListContext();
   const { currIndex } = useCurrentAudioContext();
   
+  const [currPerformer, setCurrPerformer] = useState<string | null>("");
   const [currTitle, setCurrTitle] = useState<string | null>("");
   const [currLink, setCurrLink] = useState<string | null>("");
 
   useEffect(() => { 
-    function CurrentAudio(title: string, link: string) { 
+    function CurrentAudio(title: string, link: string, performer: string) { 
       setCurrTitle(title);
       setCurrLink(link);
+      setCurrPerformer(performer)
     }
-    CurrentAudio(audioList[currIndex]?.title, audioList[currIndex]?.rawAudioUrl)
+    CurrentAudio(audioList[currIndex]?.title, audioList[currIndex]?.rawAudioUrl, audioList[currIndex]?.performer)
   }, [currIndex])
 
   // check if there's data in the local storage
   useEffect(() => {
     const storedData = localStorage.getItem('audioList');
     if (storedData) {
-      console.log(storedData)
       setAudioList(JSON.parse(storedData))
     }
   }, []);
@@ -44,7 +45,10 @@ function App() {
   return (
       <div className="flex flex-col gap-5">
         <div className="flex flex-row items-center left-0 absolute bottom-0 justify-center w-screen bg-[#00000064]">
-          <span className="w-[580px] overflow-hidden text-center m-3 whitespace-nowrap absolute left-0">{currTitle}</span>
+          <div className="flex flex-col h-fit absolute left-36">
+            <span className="w-[580px] text-lg overflow-hidden whitespace-nowrap">{currTitle}</span>
+            <span className="w-[580px] text-sm overflow-hidden whitespace-nowrap">{currPerformer}</span>
+          </div>
           <Controls currentAudio={currLink} /> 
         </div>
         <div className="gap-2 m-5 w-[568px]">
