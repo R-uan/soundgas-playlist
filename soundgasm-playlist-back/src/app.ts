@@ -7,7 +7,6 @@ export async function GetAudioInfo(url: string) {
     const html = (await axios.get(url)).data;
     const performerReg = new RegExp("(?<=https://soundgasm.net/u/)(.*)(?=/)", "gi");
     const performer = url.match(performerReg);
-    console.log(performer);
 
     const audioIdReg = new RegExp("(?<=sounds/)(.*)(?=.m4a)", "gmi");
     const rawAudioId = cheerio.load(html)("script").text().match(audioIdReg);
