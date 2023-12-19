@@ -32,7 +32,6 @@ function App() {
   // Set local storage on audio list change
   useEffect(() => { 
     localStorage.setItem("audioList", JSON.stringify(audioList));
-    console.log(audioList)
   }, [audioList])
 
   // resets the controls ui on empty audio list
@@ -52,7 +51,7 @@ function App() {
           </div>
           <Controls currentAudio={currLink} /> 
         </div>
-        <div className="gap-2 m-5 w-[568px]">
+        <div className="gap-2 m-5 w-fit">
           <AddAudio />
         </div>
       </div>
