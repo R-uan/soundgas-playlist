@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
+import AudioListTestData from "../scripts/AudioListTestData";
 import IAudio from "../scripts/IAudio";
 
 
@@ -10,7 +11,7 @@ const AudioArrayContext = createContext<AudioArrayContextValue | null>(null);
 
 export default function AudioListProvider({ children } : { children: ReactNode }) {
     const starterArray: IAudio[] = []
-    const [audioList, setAudioList] = useState<IAudio[]>(starterArray);
+    const [audioList, setAudioList] = useState<IAudio[]>(AudioListTestData);
     return (
         <AudioArrayContext.Provider value={{audioList, setAudioList}}>
             {children}
