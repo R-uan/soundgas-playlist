@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-import IAudio from "../IAudio";
+import IAudio from "../scripts/IAudio";
 
 
 interface AudioArrayContextValue { 

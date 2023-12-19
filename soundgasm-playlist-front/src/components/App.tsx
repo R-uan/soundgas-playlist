@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
 import Controls from "./Controls";
 import AddAudio from "./AddAudio";
-import { useAudioListContext } from "./contexts/AudioListProvider";
-import { useCurrentAudioContext } from "./contexts/CurrentAudioProvider";
+import { useEffect, useState } from "react"
+import { useAudioListContext } from "../contexts/AudioListProvider";
+import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 
 function App() {
   const { audioList, setAudioList } = useAudioListContext();

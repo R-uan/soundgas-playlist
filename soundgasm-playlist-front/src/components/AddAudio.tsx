@@ -1,9 +1,9 @@
-import { useRef } from "react";
-import { useAudioListContext } from "./contexts/AudioListProvider";
-import IAudio from "./IAudio";
-import { GetAudioInfo } from "./GetAudioInfo";
 import Audio from "./Audio";
-import { useCurrentAudioContext } from "./contexts/CurrentAudioProvider";
+import { useRef } from "react";
+import IAudio from "../scripts/IAudio";
+import { GetAudioInfo } from "../scripts/GetAudioInfo";
+import { useAudioListContext } from "../contexts/AudioListProvider";
+import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 
 export default function AddAudio() {
     const inputRef = useRef<HTMLInputElement | null>(null);

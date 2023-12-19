@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
-import { useCurrentAudioContext } from "./contexts/CurrentAudioProvider";
-import { useAudioListContext } from "./contexts/AudioListProvider";
-import { Pause, Play, Previous, Next, Down, Up } from "./assets/Media/MediaHelper"
+import { useAudioListContext } from "../contexts/AudioListProvider";
+import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
+import { Pause, Play, Previous, Next, Down, Up } from "../assets/Media/MediaHelper"
+
 export default function Controls({ currentAudio } : { currentAudio: string }) {
     const { audioList } = useAudioListContext();
     const { currIndex, setCurrIndex } = useCurrentAudioContext();

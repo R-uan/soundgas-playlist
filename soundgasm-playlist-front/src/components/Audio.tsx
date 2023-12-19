@@ -1,4 +1,4 @@
-import IAudio from "./IAudio"
+import IAudio from "../scripts/IAudio"
 
 export default function Audio({ data } : { data: IAudio }) {
     let { title } = data
