@@ -16,7 +16,7 @@ function App() {
       setCurrTitle(title);
       setCurrLink(link);
     }
-    CurrentAudio(audioList[currIndex]?.title, audioList[currIndex]?.audioLink)
+    CurrentAudio(audioList[currIndex]?.title, audioList[currIndex]?.rawAudioUrl)
   }, [currIndex])
 
   // check if there's data in the local storage
