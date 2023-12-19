@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAudioListContext } from "../contexts/AudioListProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 import { Pause, Play, Previous, Next, Down, Up } from "../assets/Media/MediaHelper"
 
-export default function Controls({ currentAudio } : { currentAudio: string }) {
+export default function Controls({ currentAudio } : { currentAudio: string | null }) {
     const { audioList } = useAudioListContext();
     const { currIndex, setCurrIndex } = useCurrentAudioContext();
     const audioPlayerRef = useRef<HTMLAudioElement>(null);
@@ -17,6 +17,11 @@ export default function Controls({ currentAudio } : { currentAudio: string }) {
           else audioPlayer.play();
           setPlaying(!isPlaying);
         }
+    };
+
+    function handleOnAudioEnd() { 
+      if(currIndex == audioList.length) return;
+      setTimeout(() => setCurrIndex(currIndex + 1), 3000);
     };
 
     function handleNextAudio() { 
@@ -49,9 +54,16 @@ export default function Controls({ currentAudio } : { currentAudio: string }) {
       }
     };
 
+    useEffect(() => { 
+      if(currentAudio == null){ 
+        setPlaying(false); 
+        setCurrIndex(-1); 
+      } 
+    }, [currentAudio])
+
     return (
         <div className="flex flex-row gap-2 items-center p-3">
-            <audio ref={audioPlayerRef} onPlay={() => setPlaying(true)} src={currentAudio} onEnded={handleNextAudio} autoPlay></audio>
+            <audio ref={audioPlayerRef} onPlay={() => setPlaying(true)} src={currentAudio ? currentAudio : ""} onEnded={handleOnAudioEnd} autoPlay></audio>
             <div className="flex gap-5">
               {/* Play / Pause / Previous / Next */}
               <div className="flex flex-row align-middle w-fit gap-3">

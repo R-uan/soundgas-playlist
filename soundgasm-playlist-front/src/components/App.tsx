@@ -7,8 +7,8 @@ import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 function App() {
   const { audioList, setAudioList } = useAudioListContext();
   const { currIndex } = useCurrentAudioContext();
-  const [currTitle, setCurrTitle] = useState<string>("");
-  const [currLink, setCurrLink] = useState<string>("");
+  const [currTitle, setCurrTitle] = useState<string | null>("");
+  const [currLink, setCurrLink] = useState<string | null>("");
 
   useEffect(() => { 
     function CurrentAudio(title: string, link: string) { 
@@ -28,6 +28,13 @@ function App() {
 
   useEffect(() => { 
     localStorage.setItem("audioList", JSON.stringify(audioList));
+  }, [audioList])
+
+  useEffect(() => {
+    if(audioList.length === 0) { 
+      setCurrTitle(null); 
+      setCurrLink(null);
+    }
   }, [audioList])
 
   return (

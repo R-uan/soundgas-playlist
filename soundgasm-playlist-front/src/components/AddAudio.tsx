@@ -30,7 +30,7 @@ export default function AddAudio() {
                 <button onClick={AddAudio} className="bg-[#0f1114] h-[24px] w-[58px] ml-1 rounded">Click</button>
             </div>
             <div className="flex flex-col gap-2 mt-2">
-            { audioList!.map((audio, index) => (<Audio key={index} data={audio} />)) }   
+            { audioList!.map((audio, index) => (<Audio key={index} index={index} data={audio} />)) }   
             </div> 
         </div>
         
