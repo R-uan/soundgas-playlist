@@ -1,4 +1,6 @@
 export default interface IAudio {
     title: string;
-    audioLink: string;
+    performer: string;
+    originalUrl: string;
+    rawAudioUrl: string;
 }
