@@ -15,11 +15,16 @@ export default function AddAudio() {
         const input = inputRef.current
         if(input) { 
             const inputValue = input.value;
+            if(!inputValue) return;
             input.value = "";
             try {
                 const newAudioData: IAudio = await GetAudioInfo(inputValue);
+                if(newAudioData == null) return;
                 setAudioList((old) => [...old, newAudioData])
-            } catch (error) { console.log(`Olha o erro ${error}`) }
+            } catch (error) { 
+                console.log(`Unexpected Error: ${error}`) 
+            };
+
             if(currIndex == -1) setCurrIndex(0);
         }
     }

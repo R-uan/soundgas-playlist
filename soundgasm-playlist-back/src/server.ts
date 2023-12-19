@@ -7,9 +7,11 @@ app.use(Express.json());
 app.use(cors({ origin: "*", optionsSuccessStatus: 200 }));
 
 app.post("/", async (req, res) => {
-    res.json(await GetAudioInfo(req.body.link));
+    try {
+        res.json(await GetAudioInfo(req.body.link));
+    } catch (error) {
+        res.status(400).send("Invalid link");
+    }
 });
 
-app.listen(8080, () => {
-    console.log("Yepi");
-});
+app.listen(8080, () => console.log("Listening on: http://localhost:8080/"));
