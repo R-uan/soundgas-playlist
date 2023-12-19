@@ -2,10 +2,15 @@ import IAudio from "../scripts/IAudio"
 import { Trash, Play_24 } from "../assets/Media/MediaHelper";
 import { useAudioListContext } from "../contexts/AudioListProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
+import { useEffect, useState } from "react";
 
 export default function Audio({ data, index } : { data: IAudio, index: number }) {
-    const { setCurrIndex } = useCurrentAudioContext();
+    const isCurrentStyle = "flex items-center w-[568px] h-fit bg-[black] rounded-lg relative p-2 pl-4";
+    const isNotCurrentStyle = "flex items-center w-[568px] h-fit bg-[#0f1114] rounded-lg relative p-2 pl-4"
+
+    const { currIndex, setCurrIndex } = useCurrentAudioContext();
     const { audioList, setAudioList } = useAudioListContext();
+    const [ isCurrent, setIsCurrent ] = useState(false);
     
     let { title, performer, originalUrl } = data
     title.length > 50 ? title = title.slice(0, 51) + "..." : null
@@ -13,8 +18,13 @@ export default function Audio({ data, index } : { data: IAudio, index: number })
     function handleClick() { setCurrIndex(index) }
     function handleDeletion() { setAudioList(audioList.filter((_, i) => i != index)); }
 
+    useEffect(() => { 
+        if(currIndex == index) setIsCurrent(true);
+        else setIsCurrent(false);
+    }, [currIndex])
+
     return (
-        <div className="flex items-center w-[568px] h-fit bg-[#0f1114] rounded-lg relative p-2 pl-4">
+        <div className={isCurrent ? isCurrentStyle : isNotCurrentStyle}>
             <div className="flex flex-col">
                 <span className="text-lg">
                     <a href={originalUrl} target="_blank">

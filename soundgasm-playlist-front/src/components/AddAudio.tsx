@@ -30,12 +30,12 @@ export default function AddAudio() {
     }
 
     return ( 
-        <div className="gap-2 m-5 mt-0 w-[568px]">
-            <div className="flex"> 
-                <input ref={inputRef} type="text" name="audio_link" className="w-full rounded pl-1 bg-[#0f1114]" />
-                <button onClick={AddAudio} className="bg-[#0f1114] h-[24px] w-[58px] ml-1 rounded">Click</button>
+        <div className="gap-2 m-5 mt-0 w-fit h-[660px] overflow-auto">
+            <div className="flex sticky top-0 z-50 h-8 bg-[#15181D]"> 
+                <input ref={inputRef} type="text" name="audio_link" className="w-full rounded h-[24px] pl-1 bg-[#0f1114]" />
+                <button onClick={AddAudio} className="bg-[#0f1114] h-[24px] w-[58px] ml-1 rounded">Add</button>
             </div>
-            <div className="flex flex-col gap-2 mt-2">
+            <div className="flex flex-col gap-2 mt-2 bottom-0">
             { audioList!.map((audio, index) => (<Audio key={index} index={index} data={audio} />)) }   
             </div> 
         </div>
