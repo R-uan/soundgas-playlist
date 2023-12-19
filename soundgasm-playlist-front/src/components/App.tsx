@@ -32,6 +32,7 @@ function App() {
   // Set local storage on audio list change
   useEffect(() => { 
     localStorage.setItem("audioList", JSON.stringify(audioList));
+    console.log(audioList)
   }, [audioList])
 
   // resets the controls ui on empty audio list
@@ -44,9 +45,9 @@ function App() {
 
   return (
       <div className="flex flex-col gap-5">
-        <div className="flex flex-row items-center left-0 absolute bottom-0 justify-center w-screen bg-[#00000064]">
-          <div className="flex flex-col h-fit absolute left-36">
-            <span className="w-[580px] text-lg overflow-hidden whitespace-nowrap">{currTitle}</span>
+        <div className="flex flex-row items-center left-0 absolute bottom-0 justify-center w-screen bg-[#0D0F12]">
+          <div className="flex flex-col h-fit absolute left-20 w-[468px]">
+            <span className="w-[540px] h-8 text-lg overflow-auto whitespace-break-spaces">{currTitle}</span>
             <span className="w-[580px] text-sm overflow-hidden whitespace-nowrap">{currPerformer}</span>
           </div>
           <Controls currentAudio={currLink} /> 
