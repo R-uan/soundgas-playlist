@@ -1,12 +1,12 @@
 import IAudio from "../scripts/IAudio"
-import { Trash, Play_24 } from "../assets/Media/MediaHelper";
+import { Trash, Play_24, MoveUp, MoveDown } from "../assets/Media/MediaHelper";
 import { useAudioListContext } from "../contexts/AudioListProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 import { useEffect, useState } from "react";
 
 export default function Audio({ data, index } : { data: IAudio, index: number }) {
-    const isCurrentStyle = "flex items-center w-[568px] h-fit bg-[black] rounded-lg relative p-2 pl-4";
-    const isNotCurrentStyle = "flex items-center w-[568px] h-fit bg-[#0f1114] rounded-lg relative p-2 pl-4"
+    const isCurrentStyle = "flex items-center w-[685px] h-fit bg-[#343541] rounded-lg relative p-2 pl-4";
+    const isNotCurrentStyle = "flex items-center w-[685px] h-fit bg-[#0f1114] rounded-lg relative p-2 pl-4"
 
     const { currIndex, setCurrIndex } = useCurrentAudioContext();
     const { audioList, setAudioList } = useAudioListContext();
@@ -22,6 +22,26 @@ export default function Audio({ data, index } : { data: IAudio, index: number })
         if(currIndex == index) setIsCurrent(true);
         else setIsCurrent(false);
     }, [currIndex])
+
+    function handleMoveUp() {
+        if(index == 0) return; 
+        let audioListClone = audioList.slice();
+        const temp = audioListClone[index - 1];
+        audioListClone[index - 1] = audioListClone[index];
+        audioListClone[index] = temp;
+        if(isCurrent) setCurrIndex(index - 1);
+        setAudioList(audioListClone);
+    }
+
+    function handleMoveDown() { 
+        if(index == audioList.length - 1) return; 
+        let audioListClone = audioList.slice();
+        const temp = audioListClone[index + 1];
+        audioListClone[index + 1] = audioListClone[index];
+        audioListClone[index] = temp;
+        if(isCurrent) setCurrIndex(index + 1);
+        setAudioList(audioListClone);
+    }
 
     return (
         <div className={isCurrent ? isCurrentStyle : isNotCurrentStyle}>
@@ -40,6 +60,14 @@ export default function Audio({ data, index } : { data: IAudio, index: number })
                 <button onClick={handleDeletion}>
                     <img src={Trash} alt="remove audio" />
                 </button>
+                <div className="flex flex-col gap-3">
+                    <button onClick={handleMoveUp}>
+                        <img src={MoveUp} alt="move up" />
+                    </button>
+                    <button onClick={handleMoveDown}>
+                        <img src={MoveDown} alt="move down" />
+                    </button>
+                </div>
             </div>
         </div>
     )
