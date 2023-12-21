@@ -30,7 +30,7 @@ export default function AddAudio() {
     }
 
     return ( 
-        <div className="gap-2 m-5 mt-0 w-fit h-[660px] overflow-auto">
+        <div className="gap-2 m-5 mt-0 w-[685px] h-[660px] overflow-auto">
             <div className="flex sticky top-0 z-50 h-8 bg-[#15181D]"> 
                 <input ref={inputRef} type="text" name="audio_link" className="w-full rounded h-[24px] pl-1 bg-[#0f1114]" />
                 <button onClick={AddAudio} className="bg-[#0f1114] h-[24px] w-[58px] ml-1 rounded">Add</button>

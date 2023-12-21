@@ -51,7 +51,7 @@ function App() {
           </div>
           <Controls currentAudio={currLink} /> 
         </div>
-        <div className="gap-2 m-5 w-fit">
+        <div className="gap-2 m-5 w-[685px]">
           <AddAudio />
         </div>
       </div>
