@@ -1,0 +1,11 @@
+import Pause from "./Pause.png";
+import Play from "./Play.png";
+import Previous from "./Skip_Back.png";
+import Next from "./Skip_Forward.png";
+import VolUp from "./Volume_Plus.png";
+import VolDown from "./Volume_Minus.png";
+import Trash from "./Trash.png";
+import Play_24 from "./Play_24.png";
+import MoveUp from "./Up.png";
+import MoveDown from "./Down.png";
+export { Pause, Play, Previous, Next, VolUp, VolDown, Trash, Play_24, MoveUp, MoveDown };
