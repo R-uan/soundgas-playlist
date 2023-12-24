@@ -45,13 +45,14 @@ function App() {
   }, [audioList])
 
   return (
-      <div className="flex flex-col gap-5">
-        <div className="flex flex-row items-center left-0 absolute bottom-0 justify-center w-screen bg-[#0D0F12]">
-          <div className="flex flex-col h-fit absolute left-20 w-[468px]">
-            <span className="w-[540px] h-8 text-lg overflow-auto whitespace-break-spaces">{currTitle}</span>
-            <span className="w-[580px] text-sm overflow-hidden whitespace-nowrap">{currPerformer}</span>
-          </div>
-          <Controls currentAudio={currLink} /> 
+      <div className="flex flex-row gap-5">
+          <Controls currentAudio={currLink} currentTitle={currTitle} currentPerformer={currPerformer} /> 
+        <div className="absolute rounded flex flex-col items-center bg-[#0f1114] w-[250px] h-fit left-[50px] p-2 mt-5">
+          <span className="text-lg font-bold">Supported Sites</span>
+          <ol className="ml-5 list-disc">
+            <li>Soundgasm.com</li>
+            <li>c#.kemono.su</li>
+          </ol>
         </div>
         <div className="gap-2 m-5 w-[685px]">
           <AddAudio />
