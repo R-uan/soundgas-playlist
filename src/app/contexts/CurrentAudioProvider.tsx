@@ -2,16 +2,16 @@ import { ReactNode, SetStateAction, createContext, useContext, useState } from "
 
 
 interface CurrentAudioContextValue { 
-    currIndex: number,
-    setCurrIndex: React.Dispatch<SetStateAction<number>>
+    currentIndex: number,
+    setCurrentIndex: React.Dispatch<SetStateAction<number>>
 }
 
 const CurrentAudioContext = createContext<CurrentAudioContextValue | null>(null);
 
 export default function CurrentAudioProvider({children} : {children: ReactNode}) { 
-    const [currIndex, setCurrIndex] = useState<number>(-1);
+    const [currentIndex, setCurrentIndex] = useState<number>(-1);
     return(
-        <CurrentAudioContext.Provider value={{currIndex, setCurrIndex}}>
+        <CurrentAudioContext.Provider value={{currentIndex, setCurrentIndex}}>
             {children}
         </CurrentAudioContext.Provider>
     )

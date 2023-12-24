@@ -8,7 +8,7 @@ import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 export default function AddAudio() {
     const inputRef = useRef<HTMLInputElement | null>(null);
 
-    const { currIndex, setCurrIndex } = useCurrentAudioContext();
+    const { currentIndex, setCurrentIndex } = useCurrentAudioContext();
     const { audioList, setAudioList } = useAudioListContext();
 
     async function AddAudio() {
@@ -25,7 +25,7 @@ export default function AddAudio() {
                 console.log(`Unexpected Error: ${error}`) 
             };
 
-            if(currIndex == -1) setCurrIndex(0);
+            if(currentIndex == -1) setCurrentIndex(0);
         }
     }
 
