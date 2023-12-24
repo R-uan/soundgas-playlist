@@ -5,6 +5,7 @@ import AddAudio from "./AddAudio";
 import { useEffect, useState } from "react"
 import { useAudioListContext } from "../contexts/AudioListProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
+import SidePanel from "./SidePanel";
 
 function App() {
   const { audioList, setAudioList } = useAudioListContext();
@@ -47,16 +48,10 @@ function App() {
   return (
       <div className="flex flex-row gap-5">
           <Controls currentAudio={currLink} currentTitle={currTitle} currentPerformer={currPerformer} /> 
-        <div className="absolute rounded flex flex-col items-center bg-[#0f1114] w-[250px] h-fit left-[50px] p-2 mt-5">
-          <span className="text-lg font-bold">Supported Sites</span>
-          <ol className="ml-5 list-disc">
-            <li>Soundgasm.com</li>
-            <li>c#.kemono.su</li>
-          </ol>
-        </div>
+          <SidePanel />
         <div className="gap-2 m-5 w-[685px]">
           <AddAudio />
-        </div>
+        S</div>
       </div>
   )
 }
