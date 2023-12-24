@@ -110,7 +110,7 @@ export default function Controls({ currentAudio, currentTitle, currentPerformer 
                 <div>
                   <div className="h-1 bg-white w-72"></div>
                 </div>
-                <span className="text-xs absolute">I don't know how to make a progress bar yet xD</span>
+                <span className="text-xs absolute">I don&#39;t know how to make a progress bar yet xD</span>
               </div>
               {/* Volume Controls */}
               <div className="flex gap-5 items-center">

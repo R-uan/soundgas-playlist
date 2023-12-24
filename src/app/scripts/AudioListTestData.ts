@@ -1,4 +1,4 @@
-export default [
+const AudoListTestData = [
     {
         title: "Your GF Embraces Her Inner Mommy! (sfx + music)",
         performer: "lonelydragonz",
@@ -75,3 +75,5 @@ export default [
             "https://media.soundgasm.net/sounds/6d4daf6b15ed9804f3d9c4525436c0a2a54ad1e8.m4a",
     },
 ];
+
+export default AudoListTestData;

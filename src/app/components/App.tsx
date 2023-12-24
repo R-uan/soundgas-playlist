@@ -16,33 +16,44 @@ function App() {
   const [currLink, setCurrLink] = useState<string | null>("");
 
   useEffect(() => { 
-    function CurrentAudio(title: string, link: string, performer: string) { 
-      setCurrTitle(title);
-      setCurrLink(link);
-      setCurrPerformer(performer)
+    function CurrentAudio() {
+      if(audioList[currIndex]) {
+        setCurrTitle(audioList[currIndex].title);
+        setCurrLink(audioList[currIndex].rawAudioUrl);
+        setCurrPerformer(audioList[currIndex].performer)
+      } 
     }
-    CurrentAudio(audioList[currIndex]?.title, audioList[currIndex]?.rawAudioUrl, audioList[currIndex]?.performer)
+    CurrentAudio()
   }, [currIndex])
 
   // check if there's data in the local storage
   useEffect(() => {
-    const storedData = localStorage.getItem('audioList');
-    if (storedData) {
-      setAudioList(JSON.parse(storedData))
+    function doThing() {
+      const storedData = localStorage.getItem('audioList');
+      if (storedData) {
+        setAudioList(JSON.parse(storedData))
+      }
     }
+    doThing();
   }, []);
 
   // Set local storage on audio list change
   useEffect(() => { 
-    localStorage.setItem("audioList", JSON.stringify(audioList));
+    function doThing() { 
+      localStorage.setItem("audioList", JSON.stringify(audioList));
+    }
+    doThing();
   }, [audioList])
 
   // resets the controls ui on empty audio list
   useEffect(() => {
-    if(audioList.length === 0) { 
-      setCurrTitle(null); 
-      setCurrLink(null);
+    function doThing() { 
+      if(audioList.length === 0) { 
+        setCurrTitle(null); 
+        setCurrLink(null);
+      }
     }
+    doThing();
   }, [audioList])
 
   return (
