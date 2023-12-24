@@ -7,21 +7,30 @@ import Image from "next/image";
 export default function Controls({ currentAudio, currentTitle, currentPerformer } : { currentAudio: string | null, currentTitle: string | null, currentPerformer: string | null }) {
   const { audioList } = useAudioListContext();
   const { currIndex, setCurrIndex } = useCurrentAudioContext();
-  const [currentTime, setCurrentTime] = useState<string | null>(null);
+
   const audioPlayerRef = useRef<HTMLAudioElement>(null);
+  const audioPlayer = audioPlayerRef.current;
+  
   const [isPlaying, setPlaying] = useState(false);
   const [currentVol, setCurrentVolume] = useState<number>(100);
-  const audioPlayer = audioPlayerRef.current;
-  const totalDuration = new Date(audioPlayer!.duration * 1000).toISOString().slice(11,19);
+  
+  const [currentTime, setCurrentTime] = useState<string | null>(null);
+  const [totalDuration, setTotalDuration] = useState<string | null>(null);
+  
+  function handleTogglePlay() {
+    const audioPlayer = audioPlayerRef.current;
+    if (audioPlayer) {
+      if (isPlaying) audioPlayer.pause();
+      else audioPlayer.play();
+      setPlaying(!isPlaying);
+    }
+  };
 
-    function handleTogglePlay() {
-        const audioPlayer = audioPlayerRef.current;
-        if (audioPlayer) {
-          if (isPlaying) audioPlayer.pause();
-          else audioPlayer.play();
-          setPlaying(!isPlaying);
-        }
-    };
+  useEffect(() => {
+      if(currIndex === -1) setTotalDuration(null);
+      else if(audioPlayer && isPlaying) setTotalDuration(new Date(audioPlayer?.duration * 1000).toISOString().slice(11,19));
+      else if(audioList.length === 0) setTotalDuration(null);
+    }, [isPlaying])
 
     function handleTimeUpdate() { 
       if(audioPlayer) {
@@ -75,7 +84,7 @@ export default function Controls({ currentAudio, currentTitle, currentPerformer 
     }, [currentAudio])
 
     return (
-      <div className="flex flex-row left-0 absolute bottom-0 justify-center w-screen bg-[#0D0F12] z-50">   
+      <div className="flex flex-row left-0 absolute bottom-0 justify-center w-screen h-[76px] bg-[#0D0F12] z-50">   
         <div className="flex flex-row p-3 gap-10 items-center">
             <audio ref={audioPlayerRef} onPlay={() => setPlaying(true)} src={currentAudio ? currentAudio : ""} onEnded={handleOnAudioEnd} onTimeUpdate={handleTimeUpdate} autoPlay></audio>
             {/* Current Audio Info */}

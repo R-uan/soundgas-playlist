@@ -17,7 +17,10 @@ export default function Audio({ data, index } : { data: IAudio, index: number })
     title.length > 50 ? title = title.slice(0, 51) + "..." : null
 
     function handleClick() { setCurrIndex(index) }
-    function handleDeletion() { setAudioList(audioList.filter((_, i) => i != index)); }
+    function handleDeletion() { 
+        setAudioList(audioList.filter((_, i) => i != index)); 
+        setCurrIndex(-1);
+    }
 
     useEffect(() => { 
         if(currIndex == index) setIsCurrent(true);
@@ -54,18 +57,21 @@ export default function Audio({ data, index } : { data: IAudio, index: number })
                 </span>
                 <span className="text-sm">{performer}</span>
             </div>
+            {/* Play now */}
             <div className="absolute right-3 flex gap-6 items-center h-full">
-                <button aria-label="play now" onClick={handleClick}>
+                <button className="hover:opacity-70" aria-label="play now" onClick={handleClick}>
                     <Image src={Play_24} alt="play now" />
                 </button>
-                <button aria-label="delete audio" onClick={handleDeletion}>
+            {/* Delete audio */}
+                <button className="hover:opacity-70" aria-label="delete audio" onClick={handleDeletion}>
                     <Image src={Trash} alt="remove audio" />
                 </button>
+            {/* Move UP/DOWN */}
                 <div className="flex flex-col gap-3">
-                    <button aria-label="move up" onClick={handleMoveUp}>
+                    <button className="hover:opacity-70" aria-label="move up" onClick={handleMoveUp}>
                         <Image src={MoveUp} alt="move up" />
                     </button>
-                    <button aria-label="move down" onClick={handleMoveDown}>
+                    <button className="hover:opacity-70" aria-label="move down" onClick={handleMoveDown}>
                         <Image src={MoveDown} alt="move down" />
                     </button>
                 </div>
