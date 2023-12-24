@@ -9,43 +9,48 @@ export default function Audio({ data, index } : { data: IAudio, index: number })
     const isCurrentStyle = "flex items-center w-[685px] h-fit bg-[#343541] rounded-lg relative p-2 pl-4";
     const isNotCurrentStyle = "flex items-center w-[685px] h-fit bg-[#0f1114] rounded-lg relative p-2 pl-4"
 
-    const { currIndex, setCurrIndex } = useCurrentAudioContext();
+    const { currentIndex, setCurrentIndex } = useCurrentAudioContext();
     const { audioList, setAudioList } = useAudioListContext();
     const [ isCurrent, setIsCurrent ] = useState(false);
     
     let { title, performer, originalUrl } = data
     title.length > 50 ? title = title.slice(0, 51) + "..." : null
 
-    function handleClick() { setCurrIndex(index) }
-    function handleDeletion() { 
-        setAudioList(audioList.filter((_, i) => i != index)); 
-        setCurrIndex(-1);
+    function handlePlayNow() {
+        setCurrentIndex(index) 
     }
 
-    useEffect(() => { 
-        if(currIndex == index) setIsCurrent(true);
-        else setIsCurrent(false);
-    }, [currIndex])
+    function handleDeletion() {
+        setAudioList(audioList.filter((_, i) => i != index)); 
+        setCurrentIndex(-1);
+    }
 
     function handleMoveUp() {
         if(index == 0) return; 
+        if(currentIndex === index - 1) { setCurrentIndex(index) }
         let audioListClone = audioList.slice();
         const temp = audioListClone[index - 1];
         audioListClone[index - 1] = audioListClone[index];
         audioListClone[index] = temp;
-        if(isCurrent) setCurrIndex(index - 1);
+        if(isCurrent) setCurrentIndex(index - 1);
         setAudioList(audioListClone);
     }
 
     function handleMoveDown() { 
         if(index == audioList.length - 1) return; 
+        if(currentIndex === index + 1) { setCurrentIndex(index) }
         let audioListClone = audioList.slice();
         const temp = audioListClone[index + 1];
         audioListClone[index + 1] = audioListClone[index];
         audioListClone[index] = temp;
-        if(isCurrent) setCurrIndex(index + 1);
+        if(isCurrent) setCurrentIndex(index + 1);
         setAudioList(audioListClone);
     }
+
+    useEffect(() => { 
+        if(currentIndex == index) setIsCurrent(true);
+        else setIsCurrent(false);
+    }, [currentIndex])
 
     return (
         <div className={isCurrent ? isCurrentStyle : isNotCurrentStyle}>
@@ -59,7 +64,7 @@ export default function Audio({ data, index } : { data: IAudio, index: number })
             </div>
             {/* Play now */}
             <div className="absolute right-3 flex gap-6 items-center h-full">
-                <button className="hover:opacity-70" aria-label="play now" onClick={handleClick}>
+                <button className="hover:opacity-70" aria-label="play now" onClick={handlePlayNow}>
                     <Image src={Play_24} alt="play now" />
                 </button>
             {/* Delete audio */}

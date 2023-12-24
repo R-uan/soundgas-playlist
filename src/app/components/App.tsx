@@ -9,22 +9,26 @@ import SidePanel from "./SidePanel";
 
 function App() {
   const { audioList, setAudioList } = useAudioListContext();
-  const { currIndex } = useCurrentAudioContext();
+  const { currentIndex } = useCurrentAudioContext();
   
-  const [currPerformer, setCurrPerformer] = useState<string | null>("");
-  const [currTitle, setCurrTitle] = useState<string | null>("");
-  const [currLink, setCurrLink] = useState<string | null>("");
+  const [currentPerformer, setCurrentPerformer] = useState<string | null>("");
+  const [currentTitle, setCurrentTitle] = useState<string | null>("");
+  const [currentLink, setCurrentLink] = useState<string | null>("");
 
   useEffect(() => { 
     function CurrentAudio() {
-      if(audioList[currIndex]) {
-        setCurrTitle(audioList[currIndex].title);
-        setCurrLink(audioList[currIndex].rawAudioUrl);
-        setCurrPerformer(audioList[currIndex].performer)
+      if(currentIndex === -1) {
+        setCurrentTitle(null);
+        setCurrentLink(null);
+        setCurrentPerformer(null)
+      } else if(audioList[currentIndex]) {
+        setCurrentTitle(audioList[currentIndex].title);
+        setCurrentLink(audioList[currentIndex].rawAudioUrl);
+        setCurrentPerformer(audioList[currentIndex].performer)
       } 
     }
     CurrentAudio()
-  }, [currIndex])
+  }, [currentIndex])
 
   // check if there's data in the local storage
   useEffect(() => {
@@ -49,8 +53,8 @@ function App() {
   useEffect(() => {
     function doThing() { 
       if(audioList.length === 0) { 
-        setCurrTitle(null); 
-        setCurrLink(null);
+        setCurrentTitle(null); 
+        setCurrentLink(null);
       }
     }
     doThing();
@@ -58,7 +62,7 @@ function App() {
 
   return (
       <div className="flex flex-row gap-5">
-          <Controls currentAudio={currLink} currentTitle={currTitle} currentPerformer={currPerformer} /> 
+          <Controls currentAudio={currentLink} currentTitle={currentTitle} currentPerformer={currentPerformer} /> 
           <SidePanel />
         <div className="gap-2 m-5 w-[685px]">
           <AddAudio />
