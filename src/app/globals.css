@@ -5,3 +5,16 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
+.has-tooltip:hover .tooltip {
+    @apply visible z-50;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+#test {
+    outline: 2px solid red;
+}
