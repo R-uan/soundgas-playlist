@@ -5,7 +5,7 @@ import AddAudio from "./AddAudio";
 import { useEffect, useState } from "react";
 import { useAudioListContext } from "../contexts/AudioListProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
-import SidePanel from "./SidePanel";
+import SidePanel from "./Sidemenu/Sidemenu";
 
 function App() {
 	const { currentAudioList, setCurrentAudioList } = useAudioListContext();

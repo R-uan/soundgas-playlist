@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import { useAudioListContext } from "../contexts/AudioListProvider";
-import { Trash } from "../assets/Media/MediaHelper";
+import { useAudioListContext } from "../../contexts/AudioListProvider";
+import { Trash } from "../../assets/Media/MediaHelper";
 import Image from "next/image";
 
 export default function Playlist({
