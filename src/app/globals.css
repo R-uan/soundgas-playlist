@@ -3,18 +3,18 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
 .has-tooltip:hover .tooltip {
-    @apply visible z-50;
+	@apply visible z-50;
 }
 
 textarea:focus,
 input:focus {
-    outline: none;
+	outline: none;
 }
 
 #test {
-    outline: 2px solid red;
+	outline: 2px solid red;
 }
