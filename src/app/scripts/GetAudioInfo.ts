@@ -4,7 +4,7 @@ const localhost = "http://localhost:3000/api";
 
 export async function GetAudioInfo(url: string) {
 	try {
-		const request = await axios.post(localhost, {
+		const request = await axios.post(api, {
 			link: `${url}`,
 		});
 		const audioData = request.data;
