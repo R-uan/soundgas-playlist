@@ -1,11 +1,3 @@
-## Todo
-
-shuffle option
-improve playlist
-export and import playlists
-try to make the audio progress bar
-UI overhaul
-
 # Soundgasm Playlist
 
 I refer to the application as “this”.
