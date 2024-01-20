@@ -2,74 +2,62 @@ import Audio from "./Audio";
 import { useRef } from "react";
 import IAudio from "../scripts/IAudio";
 import { GetAudioInfo } from "../scripts/GetAudioInfo";
-import { useAudioListContext } from "../contexts/AudioListProvider";
+import { usePlaylistContext } from "../contexts/PlaylistProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
+import IPlaylist from "../scripts/IPlaylist";
 
 export default function AddAudio() {
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	const { currentIndex, setCurrentIndex } = useCurrentAudioContext();
-	const { currentAudioList, setCurrentAudioList } = useAudioListContext();
+	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
+	const { name, playlist } = currentPlaylist;
 
 	async function AddAudio() {
-		const input = inputRef.current;
-		if (input) {
-			const inputValue = input.value;
-			if (!inputValue) return;
-			input.value = "";
-			try {
-				const newAudioData: IAudio = await GetAudioInfo(inputValue);
-				if (newAudioData == null) return;
-				setCurrentAudioList((old) => [...old, newAudioData]);
-			} catch (error) {
-				console.log(`Unexpected Error: ${error}`);
-			}
-
-			if (currentIndex == -1) setCurrentIndex(0);
+		try {
+			const input = await navigator.clipboard.readText();
+			const newAudioData: IAudio = await GetAudioInfo(input);
+			if (newAudioData == null) return;
+			const NewPlaylist = [...playlist, newAudioData];
+			const NewPlaylistObject: IPlaylist = {
+				name: currentPlaylist.name,
+				playlist: NewPlaylist,
+			};
+			setCurrentPlaylist(NewPlaylistObject);
+		} catch (error) {
+			console.log(`Unexpected Error: ${error}`);
 		}
+
+		if (currentIndex == -1) setCurrentIndex(0);
 	}
 
 	let count = 0;
-	async function ClearAudioList() {
+	async function ClearPlaylist() {
 		count++;
 		if (count == 2) {
-			const empty: [] = [];
-			setCurrentAudioList(empty);
+			const UnsavedPlaylist: IPlaylist = { name: "Unsaved Playlist", playlist: [] };
+			setCurrentPlaylist(UnsavedPlaylist);
 			count = 0;
-		}
-	}
-
-	function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
-		if (event.key === "Enter") {
-			AddAudio();
 		}
 	}
 
 	return (
 		<div className="gap-2 m-5 mt-0 w-[685px] h-[650px] z-0 overflow-auto">
-			<div className="flex sticky top-0 z-50 h-8 bg-[#15181D]">
-				<input
-					placeholder="Enter audio link"
-					aria-label="audio link goes here"
-					ref={inputRef}
-					type="text"
-					name="audio_link"
-					className="w-full rounded h-[30px] pl-1 bg-[#0f1114] border-[#00000015] border-2"
-					onKeyDown={(event) => handleKeyPress(event)}
-				/>
-				<div className="relative flex justify-center h-fit w-fit ml-1 rounded ">
+			<h1>Teste</h1>
+			<div className="flex justify-end sticky top-0 z-50 h-8 bg-[#15181D] ">
+				<div className="relative flex justify-center h-fit w-fit ml-1 rounded">
 					<button
 						aria-label="add audio"
 						onClick={AddAudio}
-						className="bg-[#0f1114] h-[30px] w-[68px] rounded hover:bg-[#00000070] border-[#00000015] border-2 text-center text-sm">
-						Add
+						className="bg-[#0f1114] h-[30px] p-1 w-fit rounded hover:bg-[#00000070] border-[#00000015] border-2 text-center text-sm">
+						Add Audio From Clipboard
 					</button>
 				</div>
 				<div className="has-tooltip relative flex flex-row justify-center h-fit w-fit ml-1 rounded ">
 					<div>
 						<button
 							aria-label="clear audio list"
-							onClick={ClearAudioList}
+							onClick={ClearPlaylist}
 							className="bg-[#b91414] h-[30px] w-[68px] rounded hover:bg-[#931515] text-sm  border-[#00000015] border-2">
 							Clear
 						</button>
@@ -81,7 +69,7 @@ export default function AddAudio() {
 				</div>
 			</div>
 			<div className="flex flex-col gap-2 mt-2 bottom-0">
-				{currentAudioList!.map((audio, index) => (
+				{currentPlaylist.playlist!.map((audio, index) => (
 					<Audio key={index} index={index} data={audio} />
 				))}
 			</div>
