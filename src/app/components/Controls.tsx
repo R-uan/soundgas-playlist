@@ -22,8 +22,6 @@ export default function Controls({
 }) {
 	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
 	const { currentIndex, setCurrentIndex } = useCurrentAudioContext();
-	const [shuffle, setShuffle] = useState(false);
-	const shuffled: number[] = [];
 
 	const audioPlayerRef = useRef<HTMLAudioElement>(null);
 	const audioPlayer = audioPlayerRef.current;
@@ -152,8 +150,8 @@ export default function Controls({
 					onLoadedMetadata={handleLoadMetaData}
 					autoPlay></audio>
 				{/* Current Audio Info */}
-				<div className="flex flex-col h-fit w-[440px] overflow-hidden gap-[2px]">
-					<div className="w-full h-[32px] p-1">
+				<div className="flex flex-col h-fit p-1 w-[440px] overflow-hidden gap-[1px]">
+					<div className="w-full h-fit mb-[4px]">
 						<h1
 							className={`leading-tight text-nowrap w-fit h-fit text-lg overflow-auto ${
 								currentTitle && currentTitle.length > 48 ? "overflown-title" : null
@@ -161,10 +159,8 @@ export default function Controls({
 							{currentTitle}
 						</h1>
 					</div>
-					<div className="w-full p-1">
-						<h3 className="w-full mt-[1px] text-sm overflow-hidden">
-							{currentPerformer}
-						</h3>
+					<div className="w-full p-[1px]">
+						<h3 className="w-full text-sm overflow-hidden">{currentPerformer}</h3>
 					</div>
 				</div>
 				{/* Shuffle / Play / Pause / Previous / Next */}

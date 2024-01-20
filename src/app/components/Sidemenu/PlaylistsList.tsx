@@ -36,6 +36,25 @@ export default function PlaylistsList() {
 		}
 	}
 
+	function ExportPlaylist() {
+		const DataToExport: IPlaylist[] = [];
+		playlistKeys.forEach((Key) => {
+			const Data = localStorage.getItem(Key);
+			if (Data) DataToExport.push(JSON.parse(Data));
+		});
+		if (DataToExport) {
+			const Bloeb = new Blob([JSON.stringify(DataToExport)], { type: "application/json" });
+			const UREL = URL.createObjectURL(Bloeb);
+			const Link = document.createElement("a");
+			Link.href = UREL;
+			Link.download = "soundgasm_playlists.json";
+			document.body.appendChild(Link);
+			Link.click();
+			document.body.removeChild(Link);
+			URL.revokeObjectURL(UREL);
+		}
+	}
+
 	return (
 		<div className="bg-[#0F1114] h-fit w-[250px] flex flex-col justify-start items-center rounded-md p-2 gap-2">
 			<input
@@ -49,6 +68,11 @@ export default function PlaylistsList() {
 				onClick={SavePlayList}
 				className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
 				Save Current Playlist
+			</button>
+			<button
+				onClick={ExportPlaylist}
+				className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
+				Teste
 			</button>
 			<hr />
 			<div className="w-full max-h-[200px] overflow-auto">
