@@ -1,13 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+	font-family: "Inconsolata", monospace;
+}
 
 ::-webkit-scrollbar {
 	display: none;
 }
 
-.has-tooltip:hover .tooltip {
+.has-tooltip:hover > .tooltip {
 	@apply visible z-50;
+}
+
+.playlist-name {
+	font-family: "Bebas Neue", sans-serif;
 }
 
 textarea:focus,
