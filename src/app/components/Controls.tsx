@@ -6,6 +6,7 @@ import {
 	IoPlaySkipBackSharp,
 	IoPlaySkipForwardSharp,
 	IoPauseSharp,
+	IoShuffleSharp,
 } from "react-icons/io5";
 import { MdVolumeUp, MdVolumeDown } from "react-icons/md";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
@@ -19,8 +20,10 @@ export default function Controls({
 	currentTitle: string | null;
 	currentPerformer: string | null;
 }) {
-	const { currentPlaylist } = usePlaylistContext();
+	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
 	const { currentIndex, setCurrentIndex } = useCurrentAudioContext();
+	const [shuffle, setShuffle] = useState(false);
+	const shuffled: number[] = [];
 
 	const audioPlayerRef = useRef<HTMLAudioElement>(null);
 	const audioPlayer = audioPlayerRef.current;
@@ -76,7 +79,16 @@ export default function Controls({
 		setTimeout(() => setCurrentIndex(currentIndex + 1), 3000);
 	}
 
-	function handleShuffle() {}
+	function handleShuffle() {
+		const array = currentPlaylist.playlist;
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[array[i], array[j]] = [array[j], array[i]];
+		}
+		const NewCurrentIndex = array.findIndex((obj) => obj.title === currentTitle);
+		if (NewCurrentIndex != -1) setCurrentIndex(NewCurrentIndex);
+		setCurrentPlaylist({ ...currentPlaylist, playlist: array });
+	}
 
 	function handleLoadMetaData() {
 		if (audioPlayer) {
@@ -140,8 +152,8 @@ export default function Controls({
 					onLoadedMetadata={handleLoadMetaData}
 					autoPlay></audio>
 				{/* Current Audio Info */}
-				<div className="flex flex-col h-fit w-[440px] p-1 overflow-hidden">
-					<div className="w-full h-8">
+				<div className="flex flex-col h-fit w-[440px] overflow-hidden gap-[2px]">
+					<div className="w-full h-[32px] p-1">
 						<h1
 							className={`leading-tight text-nowrap w-fit h-fit text-lg overflow-auto ${
 								currentTitle && currentTitle.length > 48 ? "overflown-title" : null
@@ -149,12 +161,17 @@ export default function Controls({
 							{currentTitle}
 						</h1>
 					</div>
-					<span className="w-[440px] text-sm overflow-hidden whitespace-nowrap">
-						{currentPerformer}
-					</span>
+					<div className="w-full p-1">
+						<h3 className="w-full mt-[1px] text-sm overflow-hidden">
+							{currentPerformer}
+						</h3>
+					</div>
 				</div>
-				{/* Play / Pause / Previous / Next */}
+				{/* Shuffle / Play / Pause / Previous / Next */}
 				<div className="flex flex-row align-middle w-fit gap-5">
+					<button onClick={handleShuffle}>
+						<IoShuffleSharp size={30} />
+					</button>
 					<button
 						className="hover:opacity-70"
 						aria-label="previous audio"
