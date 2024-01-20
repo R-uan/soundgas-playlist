@@ -10,8 +10,8 @@ interface AudioArrayContextValue {
 const AudioArrayContext = createContext<AudioArrayContextValue | null>(null);
 
 export default function PlaylistProvider({ children }: { children: ReactNode }) {
-	/* const starterArray: IPlaylist =; */
-	const [currentPlaylist, setCurrentPlaylist] = useState<IPlaylist>(NewPlaylistTestData);
+	const starterArray: IPlaylist = { name: "", playlist: [] };
+	const [currentPlaylist, setCurrentPlaylist] = useState<IPlaylist>(starterArray);
 	return (
 		<AudioArrayContext.Provider value={{ currentPlaylist, setCurrentPlaylist }}>
 			{children}
