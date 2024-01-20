@@ -35,7 +35,7 @@ export default function AddAudio() {
 	async function ClearPlaylist() {
 		count++;
 		if (count == 2) {
-			const UnsavedPlaylist: IPlaylist = { name: "Unsaved Playlist", playlist: [] };
+			const UnsavedPlaylist: IPlaylist = { name: "", playlist: [] };
 			setCurrentPlaylist(UnsavedPlaylist);
 			count = 0;
 		}
@@ -43,8 +43,12 @@ export default function AddAudio() {
 
 	return (
 		<div className="gap-2 m-5 mt-0 w-[685px] h-[650px] z-0 overflow-auto">
-			<h1>Teste</h1>
-			<div className="flex justify-end sticky top-0 z-50 h-8 bg-[#15181D] ">
+			<div className="flex justify-end sticky p-[5px] top-0 z-50 h-[38px] bg-[#15181D] ">
+				<h1
+					aria-label="playlist name"
+					className="playlist-name text-xl outline outline-2 absolute left-[5px]">
+					{name}
+				</h1>
 				<div className="relative flex justify-center h-fit w-fit ml-1 rounded">
 					<button
 						aria-label="add audio"
@@ -67,6 +71,7 @@ export default function AddAudio() {
 						clear the audio list
 					</span>
 				</div>
+				<hr />
 			</div>
 			<div className="flex flex-col gap-2 mt-2 bottom-0">
 				{currentPlaylist.playlist!.map((audio, index) => (

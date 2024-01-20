@@ -4,6 +4,7 @@ import { usePlaylistContext } from "../contexts/PlaylistProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import IPlaylist from "../scripts/IPlaylist";
 
 export default function Audio({ data, index }: { data: IAudio; index: number }) {
 	const isCurrentStyle =
@@ -23,7 +24,9 @@ export default function Audio({ data, index }: { data: IAudio; index: number }) 
 	}
 
 	function handleDeletion() {
-		setCurrentPlaylist(currentPlaylist.filter((_, i) => i != index));
+		const PlaylistClone = currentPlaylist.playlist.filter((_, i) => i != index);
+		const NewPlaylistArray: IPlaylist = { ...currentPlaylist, playlist: PlaylistClone };
+		setCurrentPlaylist(NewPlaylistArray);
 		setCurrentIndex(-1);
 	}
 
@@ -32,25 +35,27 @@ export default function Audio({ data, index }: { data: IAudio; index: number }) 
 		if (currentIndex === index - 1) {
 			setCurrentIndex(index);
 		}
-		let PlaylistClone = currentPlaylist.slice();
+		let PlaylistClone = currentPlaylist.playlist.slice();
 		const temp = PlaylistClone[index - 1];
 		PlaylistClone[index - 1] = PlaylistClone[index];
 		PlaylistClone[index] = temp;
+		const NewPlaylistArray: IPlaylist = { ...currentPlaylist, playlist: PlaylistClone };
 		if (isCurrent) setCurrentIndex(index - 1);
-		setCurrentPlaylist(PlaylistClone);
+		setCurrentPlaylist(NewPlaylistArray);
 	}
 
 	function handleMoveDown() {
-		if (index == currentPlaylist.length - 1) return;
+		if (index == currentPlaylist.playlist.length - 1) return;
 		if (currentIndex === index + 1) {
 			setCurrentIndex(index);
 		}
-		let PlaylistClone = currentPlaylist.slice();
+		let PlaylistClone = currentPlaylist.playlist.slice();
 		const temp = PlaylistClone[index + 1];
 		PlaylistClone[index + 1] = PlaylistClone[index];
 		PlaylistClone[index] = temp;
+		const NewPlaylistArray: IPlaylist = { ...currentPlaylist, playlist: PlaylistClone };
 		if (isCurrent) setCurrentIndex(index + 1);
-		setCurrentPlaylist(PlaylistClone);
+		setCurrentPlaylist(NewPlaylistArray);
 	}
 
 	useEffect(() => {

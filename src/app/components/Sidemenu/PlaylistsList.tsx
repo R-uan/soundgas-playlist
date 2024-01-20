@@ -1,9 +1,10 @@
 import { usePlaylistContext } from "@/app/contexts/PlaylistProvider";
 import { useRef, useState, useEffect } from "react";
 import Playlist from "./Playlist";
+import IPlaylist from "@/app/scripts/IPlaylist";
 
 export default function PlaylistsList() {
-	const { currentPlaylist } = usePlaylistContext();
+	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
 	const playlistName = useRef<HTMLInputElement | null>(null);
 	const [playlistKeys, setPlaylistKeys] = useState<string[]>([]);
 	const [trigger, setTrigger] = useState(0);
@@ -23,12 +24,18 @@ export default function PlaylistsList() {
 
 	function SavePlayList() {
 		const input = playlistName.current;
-		if (input && currentPlaylist.length > 0) {
+		if (input && currentPlaylist.playlist.length > 0) {
+			const NewPlaylist: IPlaylist = {
+				name: input.value,
+				playlist: currentPlaylist.playlist,
+			};
 			const name = "pl$" + input.value.split(" ").join("_");
-			localStorage.setItem(name, JSON.stringify(currentPlaylist));
+			localStorage.setItem(name, JSON.stringify(NewPlaylist));
+			setCurrentPlaylist(NewPlaylist);
 			setTrigger(Math.random() * 1000);
 		}
 	}
+
 	return (
 		<div className="bg-[#0F1114] h-fit w-[250px] flex flex-col justify-start items-center rounded-md p-2 gap-2">
 			<input

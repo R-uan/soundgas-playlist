@@ -21,10 +21,10 @@ function App() {
 				setCurrentTitle(null);
 				setCurrentLink(null);
 				setCurrentPerformer(null);
-			} else if (currentPlaylist[currentIndex]) {
-				setCurrentTitle(currentPlaylist[currentIndex].title);
-				setCurrentLink(currentPlaylist[currentIndex].rawAudioUrl);
-				setCurrentPerformer(currentPlaylist[currentIndex].performer);
+			} else if (currentPlaylist.playlist[currentIndex]) {
+				setCurrentTitle(currentPlaylist.playlist[currentIndex].title);
+				setCurrentLink(currentPlaylist.playlist[currentIndex].rawAudioUrl);
+				setCurrentPerformer(currentPlaylist.playlist[currentIndex].performer);
 			}
 		}
 		CurrentAudio();
@@ -52,7 +52,7 @@ function App() {
 	// resets the controls ui on empty audio list
 	useEffect(() => {
 		function doThing() {
-			if (currentPlaylist.length === 0) {
+			if (currentPlaylist.playlist.length === 0) {
 				setCurrentTitle(null);
 				setCurrentLink(null);
 			}
@@ -69,7 +69,7 @@ function App() {
 			/>
 			<SidePanel />
 			<div className="gap-2 m-5 w-[685px]">
-				<AddAudio />S
+				<AddAudio />
 			</div>
 		</div>
 	);
