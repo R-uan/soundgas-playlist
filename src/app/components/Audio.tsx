@@ -1,6 +1,6 @@
 import IAudio from "../scripts/IAudio";
 import { Trash, Play_24, MoveUp, MoveDown } from "@/app/assets/Media/MediaHelper";
-import { useAudioListContext } from "../contexts/AudioListProvider";
+import { usePlaylistContext } from "../contexts/PlaylistProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -12,7 +12,7 @@ export default function Audio({ data, index }: { data: IAudio; index: number }) 
 		"flex items-center w-[685px] h-fit bg-[#0f1114] rounded-lg relative p-2 pl-4";
 
 	const { currentIndex, setCurrentIndex } = useCurrentAudioContext();
-	const { currentAudioList, setCurrentAudioList } = useAudioListContext();
+	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
 	const [isCurrent, setIsCurrent] = useState(false);
 
 	let { title, performer, originalUrl } = data;
@@ -23,7 +23,7 @@ export default function Audio({ data, index }: { data: IAudio; index: number }) 
 	}
 
 	function handleDeletion() {
-		setCurrentAudioList(currentAudioList.filter((_, i) => i != index));
+		setCurrentPlaylist(currentPlaylist.filter((_, i) => i != index));
 		setCurrentIndex(-1);
 	}
 
@@ -32,25 +32,25 @@ export default function Audio({ data, index }: { data: IAudio; index: number }) 
 		if (currentIndex === index - 1) {
 			setCurrentIndex(index);
 		}
-		let audioListClone = currentAudioList.slice();
-		const temp = audioListClone[index - 1];
-		audioListClone[index - 1] = audioListClone[index];
-		audioListClone[index] = temp;
+		let PlaylistClone = currentPlaylist.slice();
+		const temp = PlaylistClone[index - 1];
+		PlaylistClone[index - 1] = PlaylistClone[index];
+		PlaylistClone[index] = temp;
 		if (isCurrent) setCurrentIndex(index - 1);
-		setCurrentAudioList(audioListClone);
+		setCurrentPlaylist(PlaylistClone);
 	}
 
 	function handleMoveDown() {
-		if (index == currentAudioList.length - 1) return;
+		if (index == currentPlaylist.length - 1) return;
 		if (currentIndex === index + 1) {
 			setCurrentIndex(index);
 		}
-		let audioListClone = currentAudioList.slice();
-		const temp = audioListClone[index + 1];
-		audioListClone[index + 1] = audioListClone[index];
-		audioListClone[index] = temp;
+		let PlaylistClone = currentPlaylist.slice();
+		const temp = PlaylistClone[index + 1];
+		PlaylistClone[index + 1] = PlaylistClone[index];
+		PlaylistClone[index] = temp;
 		if (isCurrent) setCurrentIndex(index + 1);
-		setCurrentAudioList(audioListClone);
+		setCurrentPlaylist(PlaylistClone);
 	}
 
 	useEffect(() => {
