@@ -1,9 +1,9 @@
-import { useAudioListContext } from "@/app/contexts/AudioListProvider";
+import { usePlaylistContext } from "@/app/contexts/PlaylistProvider";
 import { useRef, useState, useEffect } from "react";
 import Playlist from "./Playlist";
 
 export default function PlaylistsList() {
-	const { currentAudioList } = useAudioListContext();
+	const { currentPlaylist } = usePlaylistContext();
 	const playlistName = useRef<HTMLInputElement | null>(null);
 	const [playlistKeys, setPlaylistKeys] = useState<string[]>([]);
 	const [trigger, setTrigger] = useState(0);
@@ -23,9 +23,9 @@ export default function PlaylistsList() {
 
 	function SavePlayList() {
 		const input = playlistName.current;
-		if (input && currentAudioList.length > 0) {
+		if (input && currentPlaylist.length > 0) {
 			const name = "pl$" + input.value.split(" ").join("_");
-			localStorage.setItem(name, JSON.stringify(currentAudioList));
+			localStorage.setItem(name, JSON.stringify(currentPlaylist));
 			setTrigger(Math.random() * 1000);
 		}
 	}

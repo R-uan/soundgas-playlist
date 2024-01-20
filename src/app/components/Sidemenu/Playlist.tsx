@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { useAudioListContext } from "../../contexts/AudioListProvider";
+import { usePlaylistContext } from "../../contexts/PlaylistProvider";
 import { Trash } from "../../assets/Media/MediaHelper";
 import Image from "next/image";
 
@@ -10,13 +10,13 @@ export default function Playlist({
 	playlistKey: string;
 	trigger: Dispatch<SetStateAction<number>>;
 }) {
-	const { setCurrentAudioList } = useAudioListContext();
+	const { setCurrentPlaylist } = usePlaylistContext();
 	const name = playlistKey.split("$")[1].split("_").join(" ");
 
 	function SetAsCurrentPlaylist() {
 		const playlist = localStorage.getItem(playlistKey);
 		if (playlist) {
-			setCurrentAudioList(JSON.parse(playlist));
+			setCurrentPlaylist(JSON.parse(playlist));
 		}
 	}
 	function DeletePlaylist() {

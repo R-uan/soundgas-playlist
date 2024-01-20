@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useAudioListContext } from "../contexts/AudioListProvider";
+import { usePlaylistContext } from "../contexts/PlaylistProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 import { Pause, Play, Previous, Next, VolDown, VolUp } from "@/app/assets/Media/MediaHelper";
 
@@ -13,7 +13,7 @@ export default function Controls({
 	currentTitle: string | null;
 	currentPerformer: string | null;
 }) {
-	const { currentAudioList } = useAudioListContext();
+	const { currentPlaylist } = usePlaylistContext();
 	const { currentIndex, setCurrentIndex } = useCurrentAudioContext();
 
 	const audioPlayerRef = useRef<HTMLAudioElement>(null);
@@ -36,7 +36,7 @@ export default function Controls({
 	}
 
 	function handleNextAudio() {
-		if (currentIndex == currentAudioList.length) return;
+		if (currentIndex == currentPlaylist.length) return;
 		setCurrentIndex(currentIndex + 1);
 	}
 
@@ -66,7 +66,7 @@ export default function Controls({
 	}
 
 	function handleOnAudioEnd() {
-		if (currentIndex == currentAudioList.length) return;
+		if (currentIndex == currentPlaylist.length) return;
 		setTimeout(() => setCurrentIndex(currentIndex + 1), 3000);
 	}
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useAudioListContext } from "../../contexts/AudioListProvider";
+import { usePlaylistContext } from "../../contexts/PlaylistProvider";
 import Playlist from "./Playlist";
 import PlaylistsList from "./PlaylistsList";
 import SupportedSites from "./SupportedSites";

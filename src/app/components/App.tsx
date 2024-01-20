@@ -3,12 +3,12 @@
 import Controls from "./Controls";
 import AddAudio from "./AddAudio";
 import { useEffect, useState } from "react";
-import { useAudioListContext } from "../contexts/AudioListProvider";
+import { usePlaylistContext } from "../contexts/PlaylistProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 import SidePanel from "./Sidemenu/Sidemenu";
 
 function App() {
-	const { currentAudioList, setCurrentAudioList } = useAudioListContext();
+	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
 	const { currentIndex } = useCurrentAudioContext();
 
 	const [currentPerformer, setCurrentPerformer] = useState<string | null>("");
@@ -21,10 +21,10 @@ function App() {
 				setCurrentTitle(null);
 				setCurrentLink(null);
 				setCurrentPerformer(null);
-			} else if (currentAudioList[currentIndex]) {
-				setCurrentTitle(currentAudioList[currentIndex].title);
-				setCurrentLink(currentAudioList[currentIndex].rawAudioUrl);
-				setCurrentPerformer(currentAudioList[currentIndex].performer);
+			} else if (currentPlaylist[currentIndex]) {
+				setCurrentTitle(currentPlaylist[currentIndex].title);
+				setCurrentLink(currentPlaylist[currentIndex].rawAudioUrl);
+				setCurrentPerformer(currentPlaylist[currentIndex].performer);
 			}
 		}
 		CurrentAudio();
@@ -35,7 +35,7 @@ function App() {
 		function doThing() {
 			const storedData = localStorage.getItem("cl$current_audio_list");
 			if (storedData) {
-				setCurrentAudioList(JSON.parse(storedData));
+				setCurrentPlaylist(JSON.parse(storedData));
 			}
 		}
 		doThing();
@@ -44,21 +44,21 @@ function App() {
 	// Set local storage on audio list change
 	useEffect(() => {
 		function doThing() {
-			localStorage.setItem("cl$current_audio_list", JSON.stringify(currentAudioList));
+			localStorage.setItem("cl$current_audio_list", JSON.stringify(currentPlaylist));
 		}
 		doThing();
-	}, [currentAudioList]);
+	}, [currentPlaylist]);
 
 	// resets the controls ui on empty audio list
 	useEffect(() => {
 		function doThing() {
-			if (currentAudioList.length === 0) {
+			if (currentPlaylist.length === 0) {
 				setCurrentTitle(null);
 				setCurrentLink(null);
 			}
 		}
 		doThing();
-	}, [currentAudioList]);
+	}, [currentPlaylist]);
 
 	return (
 		<div className="flex flex-row gap-5">
