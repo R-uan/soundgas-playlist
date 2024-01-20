@@ -9,7 +9,6 @@ import {
 } from "react-icons/io5";
 import { MdVolumeUp, MdVolumeDown } from "react-icons/md";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
-import { Pause, Play, Previous, Next, VolDown, VolUp } from "@/app/assets/Media/MediaHelper";
 
 export default function Controls({
 	currentAudio,
@@ -76,6 +75,8 @@ export default function Controls({
 		if (currentIndex == currentPlaylist.playlist.length) return;
 		setTimeout(() => setCurrentIndex(currentIndex + 1), 3000);
 	}
+
+	function handleShuffle() {}
 
 	function handleLoadMetaData() {
 		if (audioPlayer) {

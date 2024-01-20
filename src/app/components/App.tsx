@@ -1,19 +1,18 @@
 "use client";
-
-import Controls from "./Controls";
 import AddAudio from "./AddAudio";
+import Controls from "./Controls";
+import SidePanel from "./Sidemenu/Sidemenu";
 import { useEffect, useState } from "react";
 import { usePlaylistContext } from "../contexts/PlaylistProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
-import SidePanel from "./Sidemenu/Sidemenu";
 
 function App() {
-	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
 	const { currentIndex } = useCurrentAudioContext();
+	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
 
-	const [currentPerformer, setCurrentPerformer] = useState<string | null>("");
-	const [currentTitle, setCurrentTitle] = useState<string | null>("");
 	const [currentLink, setCurrentLink] = useState<string | null>("");
+	const [currentTitle, setCurrentTitle] = useState<string | null>("");
+	const [currentPerformer, setCurrentPerformer] = useState<string | null>("");
 
 	useEffect(() => {
 		function CurrentAudio() {

@@ -47,7 +47,7 @@ export default function PlaylistsList() {
 			/>
 			<button
 				onClick={SavePlayList}
-				className="border-[#00000036] border-2 p-1 bg-[#15181D] hover:bg-[#0F0F0F] w-full rounded-md">
+				className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
 				Save Current Playlist
 			</button>
 			<hr />

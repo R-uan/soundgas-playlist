@@ -1,10 +1,10 @@
 import Audio from "./Audio";
 import { useRef } from "react";
 import IAudio from "../scripts/IAudio";
+import IPlaylist from "../scripts/IPlaylist";
 import { GetAudioInfo } from "../scripts/GetAudioInfo";
 import { usePlaylistContext } from "../contexts/PlaylistProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
-import IPlaylist from "../scripts/IPlaylist";
 
 export default function AddAudio() {
 	const inputRef = useRef<HTMLInputElement | null>(null);

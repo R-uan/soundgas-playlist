@@ -1,14 +1,14 @@
 import IAudio from "../scripts/IAudio";
-import { Trash, Play_24, MoveUp, MoveDown } from "@/app/assets/Media/MediaHelper";
+import { useEffect, useState } from "react";
+import IPlaylist from "../scripts/IPlaylist";
+import { IoPlaySharp, IoTrash } from "react-icons/io5";
+import { MdArrowDropUp, MdArrowDropDown } from "react-icons/md";
 import { usePlaylistContext } from "../contexts/PlaylistProvider";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import IPlaylist from "../scripts/IPlaylist";
 
 export default function Audio({ data, index }: { data: IAudio; index: number }) {
 	const isCurrentStyle =
-		"flex items-center w-[685px] h-fit bg-[#343541] rounded-lg relative p-2 pl-4";
+		"flex items-center w-[685px] h-fit bg-[#343541] rounded-lg relative p-2 pl-4 border border-2 border-[white]";
 	const isNotCurrentStyle =
 		"flex items-center w-[685px] h-fit bg-[#0f1114] rounded-lg relative p-2 pl-4";
 
@@ -81,28 +81,28 @@ export default function Audio({ data, index }: { data: IAudio; index: number }) 
 			{/* Play now */}
 			<div className="absolute right-3 flex gap-6 items-center h-full">
 				<button className="hover:opacity-70" aria-label="play now" onClick={handlePlayNow}>
-					<Image src={Play_24} alt="play now" />
+					<IoPlaySharp size={20} />
 				</button>
 				{/* Delete audio */}
 				<button
 					className="hover:opacity-70"
 					aria-label="delete audio"
 					onClick={handleDeletion}>
-					<Image src={Trash} alt="remove audio" />
+					<IoTrash size={20} />
 				</button>
 				{/* Move UP/DOWN */}
-				<div className="flex flex-col gap-3">
+				<div className="flex flex-col">
 					<button
 						className="hover:opacity-70"
 						aria-label="move up"
 						onClick={handleMoveUp}>
-						<Image src={MoveUp} alt="move up" />
+						<MdArrowDropUp size={30} />
 					</button>
 					<button
 						className="hover:opacity-70"
 						aria-label="move down"
 						onClick={handleMoveDown}>
-						<Image src={MoveDown} alt="move down" />
+						<MdArrowDropDown size={30} />
 					</button>
 				</div>
 			</div>

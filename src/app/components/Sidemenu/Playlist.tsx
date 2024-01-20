@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { usePlaylistContext } from "../../contexts/PlaylistProvider";
-import { Trash } from "../../assets/Media/MediaHelper";
 import Image from "next/image";
-
+import { IoTrash } from "react-icons/io5";
 export default function Playlist({
 	playlistKey,
 	trigger,
@@ -27,7 +26,7 @@ export default function Playlist({
 		<>
 			<div className="relative w-full h-[30px] p-1 rounded-md bg-[#15181D] hover:bg-[#0F0F0F] text-center">
 				<button onClick={DeletePlaylist} className="absolute right-3">
-					<Image src={Trash} alt="delete playlist"></Image>
+					<IoTrash />
 				</button>
 				<button className="w-full h-full rounded-md" onClick={SetAsCurrentPlaylist}>
 					{name}
