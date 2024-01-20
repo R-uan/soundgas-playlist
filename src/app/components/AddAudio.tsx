@@ -46,7 +46,7 @@ export default function AddAudio() {
 			<div className="flex justify-end sticky p-[5px] top-0 z-50 h-[38px] bg-[#15181D] ">
 				<h1
 					aria-label="playlist name"
-					className="playlist-name text-xl outline outline-2 absolute left-[5px]">
+					className="playlist-name text-xl absolute left-[5px]">
 					{name}
 				</h1>
 				<div className="relative flex justify-center h-fit w-fit ml-1 rounded">

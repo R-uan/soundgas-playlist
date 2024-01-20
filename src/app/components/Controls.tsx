@@ -1,6 +1,13 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { usePlaylistContext } from "../contexts/PlaylistProvider";
+import {
+	IoPlaySharp,
+	IoPlaySkipBackSharp,
+	IoPlaySkipForwardSharp,
+	IoPauseSharp,
+} from "react-icons/io5";
+import { MdVolumeUp, MdVolumeDown } from "react-icons/md";
 import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 import { Pause, Play, Previous, Next, VolDown, VolUp } from "@/app/assets/Media/MediaHelper";
 
@@ -36,7 +43,7 @@ export default function Controls({
 	}
 
 	function handleNextAudio() {
-		if (currentIndex == currentPlaylist.length) return;
+		if (currentIndex == currentPlaylist.playlist.length) return;
 		setCurrentIndex(currentIndex + 1);
 	}
 
@@ -66,7 +73,7 @@ export default function Controls({
 	}
 
 	function handleOnAudioEnd() {
-		if (currentIndex == currentPlaylist.length) return;
+		if (currentIndex == currentPlaylist.playlist.length) return;
 		setTimeout(() => setCurrentIndex(currentIndex + 1), 3000);
 	}
 
@@ -132,10 +139,15 @@ export default function Controls({
 					onLoadedMetadata={handleLoadMetaData}
 					autoPlay></audio>
 				{/* Current Audio Info */}
-				<div className="flex flex-col h-fit w-[440px]">
-					<span className="w-[440px] h-8 text-lg overflow-auto whitespace-break-spaces">
-						{currentTitle}
-					</span>
+				<div className="flex flex-col h-fit w-[440px] p-1 overflow-hidden">
+					<div className="w-full h-8">
+						<h1
+							className={`leading-tight text-nowrap w-fit h-fit text-lg overflow-auto ${
+								currentTitle && currentTitle.length > 48 ? "overflown-title" : null
+							}`}>
+							{currentTitle}
+						</h1>
+					</div>
 					<span className="w-[440px] text-sm overflow-hidden whitespace-nowrap">
 						{currentPerformer}
 					</span>
@@ -147,7 +159,7 @@ export default function Controls({
 						aria-label="previous audio"
 						type="button"
 						onClick={handlePreviousAudio}>
-						<Image src={Previous} alt="previous audio" />
+						<IoPlaySkipBackSharp size={30} />
 					</button>
 					<button
 						className="hover:opacity-70"
@@ -155,14 +167,14 @@ export default function Controls({
 						id="toggle-play"
 						onClick={handleTogglePlay}
 						type="button">
-						<Image src={isPlaying ? Pause : Play} alt="pause" />
+						{isPlaying ? <IoPauseSharp size={30} /> : <IoPlaySharp size={30} />}
 					</button>
 					<button
 						className="hover:opacity-70"
 						aria-label="next audio"
 						type="button"
 						onClick={handleNextAudio}>
-						<Image src={Next} alt="next audio" />
+						<IoPlaySkipForwardSharp size={30} />
 					</button>
 				</div>
 				{/* Progress Bar */}
@@ -183,14 +195,14 @@ export default function Controls({
 						className="hover:opacity-70"
 						aria-label="volume down"
 						onClick={handleVolumeDown}>
-						<Image src={VolDown} alt="volume down" />
+						<MdVolumeDown size={30} />
 					</button>
 					<span className="text-2xl">{currentVol}</span>
 					<button
 						className="hover:opacity-70"
 						aria-label="volume up"
 						onClick={handleVolumeUp}>
-						<Image src={VolUp} alt="volume up" />
+						<MdVolumeUp size={30} />
 					</button>
 				</div>
 			</div>

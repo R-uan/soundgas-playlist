@@ -28,3 +28,20 @@ input:focus {
 #test {
 	outline: 2px solid red;
 }
+
+@keyframes TextSlider {
+	0% {
+		transform: translateX(0);
+	}
+
+	100% {
+		transform: translate(-100%);
+	}
+}
+
+.overflown-title:hover {
+	animation-name: TextSlider;
+	animation-duration: 20s;
+	animation-delay: 0s;
+	animation-timing-function: linear;
+}

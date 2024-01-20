@@ -17,7 +17,7 @@ export default function Audio({ data, index }: { data: IAudio; index: number }) 
 	const [isCurrent, setIsCurrent] = useState(false);
 
 	let { title, performer, originalUrl } = data;
-	title.length > 50 ? (title = title.slice(0, 51) + "...") : null;
+	/* title.length > 50 ? (title = title.slice(0, 51) + "...") : null; */
 
 	function handlePlayNow() {
 		setCurrentIndex(index);
@@ -65,13 +65,18 @@ export default function Audio({ data, index }: { data: IAudio; index: number }) 
 
 	return (
 		<div className={isCurrent ? isCurrentStyle : isNotCurrentStyle}>
-			<div className="flex flex-col">
-				<span className="text-lg">
-					<a href={originalUrl} target="_blank">
-						{title}
-					</a>
-				</span>
-				<span className="text-sm">{performer}</span>
+			<div className="flex flex-col overflow-hidden">
+				<div className="m-[3px] h-fit w-[520px]">
+					<h3
+						className={`leading-tight text-nowrap w-fit h-fit text-lg ${
+							title && title.length > 48 ? "overflown-title" : null
+						}`}>
+						<a href={originalUrl} target="_blank">
+							{title}
+						</a>
+					</h3>
+					<span className="text-sm">{performer}</span>
+				</div>
 			</div>
 			{/* Play now */}
 			<div className="absolute right-3 flex gap-6 items-center h-full">
