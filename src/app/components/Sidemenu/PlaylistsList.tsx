@@ -55,6 +55,28 @@ export default function PlaylistsList() {
 		}
 	}
 
+	function ImportPlaylist(event: React.ChangeEvent<HTMLInputElement>) {
+		const File = event.target.files![0];
+		const Reader = new FileReader();
+		Reader.onload = (e) => {
+			try {
+				if (e.target != null && typeof e.target.result == "string") {
+					const Base64Content = e.target.result.split(",")[1];
+					const DecodedContent = atob(Base64Content);
+					const JAYSON: IPlaylist[] = JSON.parse(DecodedContent);
+					JAYSON.forEach((Playlist) => {
+						const Key = "pl$" + Playlist.name.split(" ").join("_");
+						localStorage.setItem(Key, JSON.stringify(Playlist));
+					});
+					setTrigger(Math.random() * 1000);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		Reader.readAsDataURL(File);
+	}
+
 	return (
 		<div className="bg-[#0F1114] h-fit w-[250px] flex flex-col justify-start items-center rounded-md p-2 gap-2">
 			<input
@@ -69,13 +91,34 @@ export default function PlaylistsList() {
 				className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
 				Save Current Playlist
 			</button>
-			<button
-				onClick={ExportPlaylist}
-				className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
-				Teste
-			</button>
+			<div className="flex w-full gap-2">
+				<button
+					onClick={ExportPlaylist}
+					className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
+					Export
+				</button>
+				<div className="w-full">
+					<label
+						htmlFor="import-playlist"
+						className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md text-center block cursor-pointer;">
+						Import
+					</label>
+					<input
+						onChange={ImportPlaylist}
+						className="hidden"
+						type="file"
+						name="import-playlist"
+						id="import-playlist"
+					/>
+				</div>
+				{/* <button
+					onClick={ExportPlaylist}
+					className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
+					Teste
+				</button> */}
+			</div>
 			<hr />
-			<div className="w-full max-h-[200px] overflow-auto">
+			<div className="w-full max-h-[300px] overflow-auto">
 				<div className="h-fit w-full flex flex-col gap-1">
 					{playlistKeys.map((key) => (
 						<Playlist key={key} playlistKey={key} trigger={setTrigger} />
