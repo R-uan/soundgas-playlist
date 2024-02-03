@@ -1,13 +1,14 @@
 "use client";
 import AddAudio from "./AddAudio";
 import Controls from "./Controls";
+import { useSelector } from "react-redux";
+import { RootState } from "../states/store";
 import SidePanel from "./Sidemenu/Sidemenu";
 import { useEffect, useState } from "react";
 import { usePlaylistContext } from "../contexts/PlaylistProvider";
-import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 
 function App() {
-	const { currentIndex } = useCurrentAudioContext();
+	const currentIndex = useSelector((state: RootState) => state.index.value);
 	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
 
 	const [currentLink, setCurrentLink] = useState<string | null>("");

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { usePlaylistContext } from "../../contexts/PlaylistProvider";
-import Image from "next/image";
 import { IoTrash, IoReloadSharp } from "react-icons/io5";
+import { usePlaylistContext } from "../../contexts/PlaylistProvider";
+
 export default function Playlist({
 	playlistKey,
 	trigger,

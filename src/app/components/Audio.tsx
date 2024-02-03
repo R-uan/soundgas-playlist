@@ -1,18 +1,22 @@
 import IAudio from "../scripts/IAudio";
+import { RootState } from "../states/store";
 import { useEffect, useState } from "react";
 import IPlaylist from "../scripts/IPlaylist";
+import { useDispatch, useSelector } from "react-redux";
 import { IoPlaySharp, IoTrash } from "react-icons/io5";
+import { jumpTo } from "../states/slices/currentAudioSlice";
 import { MdArrowDropUp, MdArrowDropDown } from "react-icons/md";
 import { usePlaylistContext } from "../contexts/PlaylistProvider";
-import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 
 export default function Audio({ data, index }: { data: IAudio; index: number }) {
 	const isCurrentStyle =
-		"flex items-center w-[685px] h-fit bg-[#343541] rounded-lg relative p-2 pl-4 border border-2 border-[white]";
+		"flex items-center w-[685px] h-fit bg-[#0f1114] rounded-lg relative p-2 pl-4 border border-[1px] border-[white]";
 	const isNotCurrentStyle =
 		"flex items-center w-[685px] h-fit bg-[#0f1114] rounded-lg relative p-2 pl-4";
 
-	const { currentIndex, setCurrentIndex } = useCurrentAudioContext();
+	const dispatch = useDispatch();
+	const currentIndex = useSelector((state: RootState) => state.index.value);
+
 	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
 	const [isCurrent, setIsCurrent] = useState(false);
 
@@ -20,41 +24,41 @@ export default function Audio({ data, index }: { data: IAudio; index: number }) 
 	/* title.length > 50 ? (title = title.slice(0, 51) + "...") : null; */
 
 	function handlePlayNow() {
-		setCurrentIndex(index);
+		dispatch(jumpTo(index));
 	}
 
 	function handleDeletion() {
 		const PlaylistClone = currentPlaylist.playlist.filter((_, i) => i != index);
 		const NewPlaylistArray: IPlaylist = { ...currentPlaylist, playlist: PlaylistClone };
 		setCurrentPlaylist(NewPlaylistArray);
-		setCurrentIndex(-1);
+		dispatch(jumpTo(-1));
 	}
 
 	function handleMoveUp() {
 		if (index == 0) return;
 		if (currentIndex === index - 1) {
-			setCurrentIndex(index);
+			dispatch(jumpTo(index));
 		}
 		let PlaylistClone = currentPlaylist.playlist.slice();
 		const temp = PlaylistClone[index - 1];
 		PlaylistClone[index - 1] = PlaylistClone[index];
 		PlaylistClone[index] = temp;
 		const NewPlaylistArray: IPlaylist = { ...currentPlaylist, playlist: PlaylistClone };
-		if (isCurrent) setCurrentIndex(index - 1);
+		if (isCurrent) dispatch(jumpTo(index - 1));
 		setCurrentPlaylist(NewPlaylistArray);
 	}
 
 	function handleMoveDown() {
 		if (index == currentPlaylist.playlist.length - 1) return;
 		if (currentIndex === index + 1) {
-			setCurrentIndex(index);
+			dispatch(jumpTo(index));
 		}
 		let PlaylistClone = currentPlaylist.playlist.slice();
 		const temp = PlaylistClone[index + 1];
 		PlaylistClone[index + 1] = PlaylistClone[index];
 		PlaylistClone[index] = temp;
 		const NewPlaylistArray: IPlaylist = { ...currentPlaylist, playlist: PlaylistClone };
-		if (isCurrent) setCurrentIndex(index + 1);
+		if (isCurrent) dispatch(jumpTo(index + 1));
 		setCurrentPlaylist(NewPlaylistArray);
 	}
 

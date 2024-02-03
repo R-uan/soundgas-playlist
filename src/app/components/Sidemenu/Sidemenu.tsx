@@ -1,6 +1,3 @@
-import { useEffect, useRef, useState } from "react";
-import { usePlaylistContext } from "../../contexts/PlaylistProvider";
-import Playlist from "./Playlist";
 import PlaylistsList from "./PlaylistsList";
 import SupportedSites from "./SupportedSites";
 

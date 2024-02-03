@@ -1,14 +1,15 @@
 "use client";
+import { store } from "./states/store";
+import { Provider } from "react-redux";
 import App from "@/app/components/App";
 import AudioListProvider from "./contexts/PlaylistProvider";
-import CurrentAudioProvider from "./contexts/CurrentAudioProvider";
 
 export default function Home() {
 	return (
-		<AudioListProvider>
-			<CurrentAudioProvider>
+		<Provider store={store}>
+			<AudioListProvider>
 				<App />
-			</CurrentAudioProvider>
-		</AudioListProvider>
+			</AudioListProvider>
+		</Provider>
 	);
 }

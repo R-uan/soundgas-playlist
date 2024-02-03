@@ -1,7 +1,7 @@
-import { usePlaylistContext } from "@/app/contexts/PlaylistProvider";
-import { useRef, useState, useEffect } from "react";
 import Playlist from "./Playlist";
 import IPlaylist from "@/app/scripts/IPlaylist";
+import { useRef, useState, useEffect } from "react";
+import { usePlaylistContext } from "@/app/contexts/PlaylistProvider";
 
 export default function PlaylistsList() {
 	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();

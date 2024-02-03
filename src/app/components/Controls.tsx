@@ -1,6 +1,3 @@
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { usePlaylistContext } from "../contexts/PlaylistProvider";
 import {
 	IoPlaySharp,
 	IoPlaySkipBackSharp,
@@ -8,8 +5,12 @@ import {
 	IoPauseSharp,
 	IoShuffleSharp,
 } from "react-icons/io5";
+import { RootState } from "../states/store";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { MdVolumeUp, MdVolumeDown } from "react-icons/md";
-import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
+import { usePlaylistContext } from "../contexts/PlaylistProvider";
+import { nextAudio, previousAudio, jumpTo } from "../states/slices/currentAudioSlice";
 
 export default function Controls({
 	currentAudio,
@@ -21,7 +22,8 @@ export default function Controls({
 	currentPerformer: string | null;
 }) {
 	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
-	const { currentIndex, setCurrentIndex } = useCurrentAudioContext();
+	const currentIndex = useSelector((state: RootState) => state.index.value);
+	const dispatch = useDispatch();
 
 	const audioPlayerRef = useRef<HTMLAudioElement>(null);
 	const audioPlayer = audioPlayerRef.current;
@@ -44,12 +46,12 @@ export default function Controls({
 
 	function handleNextAudio() {
 		if (currentIndex == currentPlaylist.playlist.length) return;
-		setCurrentIndex(currentIndex + 1);
+		dispatch(nextAudio());
 	}
 
 	function handlePreviousAudio() {
 		if (currentIndex == 0) return;
-		setCurrentIndex(currentIndex - 1);
+		dispatch(previousAudio());
 	}
 
 	function handleVolumeUp() {
@@ -74,7 +76,7 @@ export default function Controls({
 
 	function handleOnAudioEnd() {
 		if (currentIndex == currentPlaylist.playlist.length) return;
-		setTimeout(() => setCurrentIndex(currentIndex + 1), 3000);
+		setTimeout(() => dispatch(jumpTo(currentIndex + 1)), 3000);
 	}
 
 	function handleShuffle() {
@@ -84,7 +86,7 @@ export default function Controls({
 			[array[i], array[j]] = [array[j], array[i]];
 		}
 		const NewCurrentIndex = array.findIndex((obj) => obj.title === currentTitle);
-		if (NewCurrentIndex != -1) setCurrentIndex(NewCurrentIndex);
+		if (NewCurrentIndex != -1) dispatch(jumpTo(NewCurrentIndex));
 		setCurrentPlaylist({ ...currentPlaylist, playlist: array });
 	}
 
@@ -128,7 +130,7 @@ export default function Controls({
 	useEffect(() => {
 		if (currentAudio == null) {
 			setPlaying(false);
-			setCurrentIndex(-1);
+			dispatch(jumpTo(-1));
 			setTotalDuration("00:00");
 			setCurrentTime("00:00");
 		} else {
@@ -170,7 +172,7 @@ export default function Controls({
 					</button>
 					<button
 						className="hover:opacity-70"
-						aria-label="previous audio"
+						aria-label="previousAudio audio"
 						type="button"
 						onClick={handlePreviousAudio}>
 						<IoPlaySkipBackSharp size={30} />
@@ -185,7 +187,7 @@ export default function Controls({
 					</button>
 					<button
 						className="hover:opacity-70"
-						aria-label="next audio"
+						aria-label="nextAudio audio"
 						type="button"
 						onClick={handleNextAudio}>
 						<IoPlaySkipForwardSharp size={30} />
