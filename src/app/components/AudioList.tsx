@@ -1,8 +1,8 @@
-import { usePlaylistContext } from "../contexts/PlaylistProvider";
 import Audio from "./Audio";
+import { usePlaylistContext } from "../contexts/PlaylistProvider";
 
 export default function AudioList() {
-	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
+	const { currentPlaylist } = usePlaylistContext();
 
 	return (
 		<div className="overflow-auto h-[95%] flex flex-col gap-2 bottom-0">

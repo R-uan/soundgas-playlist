@@ -79,22 +79,12 @@ export default function PlaylistsList() {
 
 	return (
 		<div className="bg-[#0F1114] h-fit w-[250px] flex flex-col justify-start items-center rounded-md p-2 gap-2">
-			<input
-				type="text"
-				ref={playlistName}
-				name="playlist-name"
-				className="w-full rounded pl-3 bg-[#15181D] border-[#00000015]"
-				placeholder="Enter playlist name"
-			/>
-			<button
-				onClick={SavePlayList}
-				className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
+			<input type="text" ref={playlistName} name="playlist-name" className="w-full rounded pl-3 bg-[#15181D] border-[#00000015]" placeholder="Enter playlist name" />
+			<button onClick={SavePlayList} className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
 				Save Current Playlist
 			</button>
 			<div className="flex w-full gap-2">
-				<button
-					onClick={ExportPlaylist}
-					className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
+				<button onClick={ExportPlaylist} className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
 					Export
 				</button>
 				<div className="w-full">
@@ -103,19 +93,8 @@ export default function PlaylistsList() {
 						className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md text-center block cursor-pointer;">
 						Import
 					</label>
-					<input
-						onChange={ImportPlaylist}
-						className="hidden"
-						type="file"
-						name="import-playlist"
-						id="import-playlist"
-					/>
+					<input onChange={ImportPlaylist} className="hidden" type="file" name="import-playlist" id="import-playlist" />
 				</div>
-				{/* <button
-					onClick={ExportPlaylist}
-					className="border-[#00000036] border-[1px] p-1 bg-[#15181D] hover:border-[white] hover:bg-[#0F0F0F] w-full rounded-md">
-					Teste
-				</button> */}
 			</div>
 			<hr />
 			<div className="w-full max-h-[300px] overflow-auto">

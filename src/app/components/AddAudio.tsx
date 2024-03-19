@@ -1,19 +1,12 @@
-import Audio from "./Audio";
-import { useRef } from "react";
 import IAudio from "../scripts/IAudio";
-import { RootState } from "../states/store";
 import IPlaylist from "../scripts/IPlaylist";
 import { GetAudioInfo } from "../scripts/GetAudioInfo";
-import { useDispatch, useSelector } from "react-redux";
 import { usePlaylistContext } from "../contexts/PlaylistProvider";
-import { jumpTo } from "../states/slices/currentAudioSlice";
+import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 
 export default function AddAudio() {
-	const inputRef = useRef<HTMLInputElement | null>(null);
-
-	const currentIndex = useSelector((state: RootState) => state.index.value);
-	const dispatch = useDispatch();
 	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
+	const { setAudioIndex, audioIndex } = useCurrentAudioContext();
 	const { name, playlist } = currentPlaylist;
 
 	async function AddAudio() {
@@ -31,7 +24,7 @@ export default function AddAudio() {
 			console.log(`Unexpected Error: ${error}`);
 		}
 
-		if (currentIndex == -1) dispatch(jumpTo(0));
+		if (audioIndex == -1) setAudioIndex(0);
 	}
 
 	let count = 0;

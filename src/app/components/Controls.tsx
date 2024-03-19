@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { IoPauseSharp, IoPlaySharp, IoPlaySkipBackSharp, IoPlaySkipForwardSharp, IoShuffleSharp } from "react-icons/io5";
 import { MdVolumeDown, MdVolumeUp } from "react-icons/md";
-import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
 import { usePlaylistContext } from "../contexts/PlaylistProvider";
+import { useCurrentAudioContext } from "../contexts/CurrentAudioProvider";
+import { IoPauseSharp, IoPlaySharp, IoPlaySkipBackSharp, IoPlaySkipForwardSharp, IoShuffleSharp } from "react-icons/io5";
 
 export default function Controls() {
 	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
@@ -126,7 +126,6 @@ export default function Controls() {
 					onTimeUpdate={handleTimeUpdate}
 					onLoadedMetadata={handleLoadMetaData}
 					autoPlay></audio>
-				{/* Current Audio Info */}
 				<div className="flex flex-col h-fit p-1 w-[440px] overflow-hidden gap-[1px]">
 					<div className="w-full h-fit mb-[4px]">
 						<h1 className={`leading-tight text-nowrap w-fit h-fit text-lg overflow-auto ${audio?.title && audio.title.length > 48 ? "overflown-title" : null}`}>{audio?.title}</h1>
@@ -135,7 +134,6 @@ export default function Controls() {
 						<h3 className="w-full text-sm overflow-hidden">{audio?.performer}</h3>
 					</div>
 				</div>
-				{/* Shuffle / Play / Pause / Previous / Next */}
 				<div className="flex flex-row align-middle w-fit gap-5">
 					<button onClick={handleShuffle}>
 						<IoShuffleSharp size={30} />
@@ -150,7 +148,6 @@ export default function Controls() {
 						<IoPlaySkipForwardSharp size={30} />
 					</button>
 				</div>
-				{/* Progress Bar */}
 				<div className="relative">
 					<span className="absolute right-0 bottom-full">
 						{currentTime} / {totalDuration}
@@ -160,7 +157,6 @@ export default function Controls() {
 					</div>
 					<span className="text-xs absolute">I don&#39;t know how to make a progress bar yet xD</span>
 				</div>
-				{/* Volume Controls */}
 				<div className="flex gap-5 items-center">
 					<button className="hover:opacity-70" aria-label="volume down" onClick={handleVolumeDown}>
 						<MdVolumeDown size={30} />

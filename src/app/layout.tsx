@@ -1,11 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Audio Playlist",
+	title: "Soundgasm Playlist",
 	description: "Audio Playlist for soundgasm and kemono audios.",
 };
 

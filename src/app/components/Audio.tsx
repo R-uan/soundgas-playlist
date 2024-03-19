@@ -9,13 +9,10 @@ import IPlaylist from "../scripts/IPlaylist";
 export default function Audio({ data, index }: { data: IAudio; index: number }) {
 	const isCurrentStyle = "flex items-center w-full h-fit bg-[#0f1114] rounded-lg relative p-2 pl-4 border border-[1px] border-[white]";
 	const isNotCurrentStyle = "flex items-center w-full h-fit bg-[#0f1114] rounded-lg relative p-2 pl-4";
-
 	const { audioIndex, setAudioIndex } = useCurrentAudioContext();
 	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
 	const [isCurrent, setIsCurrent] = useState(false);
-
 	let { title, performer, originalUrl } = data;
-	/* title.length > 50 ? (title = title.slice(0, 51) + "...") : null; */
 
 	function handlePlayNow() {
 		setAudioIndex(index);
@@ -76,16 +73,13 @@ export default function Audio({ data, index }: { data: IAudio; index: number }) 
 					<span className="text-sm">{performer}</span>
 				</div>
 			</div>
-			{/* Play now */}
 			<div className="absolute right-3 flex gap-6 items-center h-full">
 				<button className="hover:opacity-70" aria-label="play now" onClick={handlePlayNow}>
 					<IoPlaySharp size={20} />
 				</button>
-				{/* Delete audio */}
 				<button className="hover:opacity-70" aria-label="delete audio" onClick={handleDeletion}>
 					<IoTrash size={20} />
 				</button>
-				{/* Move UP/DOWN */}
 				<div className="flex flex-col">
 					<button className="hover:opacity-70" aria-label="move up" onClick={handleMoveUp}>
 						<MdArrowDropUp size={30} />
