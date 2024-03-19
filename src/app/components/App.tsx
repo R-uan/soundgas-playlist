@@ -6,29 +6,11 @@ import { RootState } from "../states/store";
 import SidePanel from "./Sidemenu/Sidemenu";
 import { useEffect, useState } from "react";
 import { usePlaylistContext } from "../contexts/PlaylistProvider";
+import AudioList from "./AudioList";
 
 function App() {
 	const currentIndex = useSelector((state: RootState) => state.index.value);
 	const { currentPlaylist, setCurrentPlaylist } = usePlaylistContext();
-
-	const [currentLink, setCurrentLink] = useState<string | null>("");
-	const [currentTitle, setCurrentTitle] = useState<string | null>("");
-	const [currentPerformer, setCurrentPerformer] = useState<string | null>("");
-
-	useEffect(() => {
-		function CurrentAudio() {
-			if (currentIndex === -1) {
-				setCurrentTitle(null);
-				setCurrentLink(null);
-				setCurrentPerformer(null);
-			} else if (currentPlaylist.playlist[currentIndex]) {
-				setCurrentTitle(currentPlaylist.playlist[currentIndex].title);
-				setCurrentLink(currentPlaylist.playlist[currentIndex].rawAudioUrl);
-				setCurrentPerformer(currentPlaylist.playlist[currentIndex].performer);
-			}
-		}
-		CurrentAudio();
-	}, [currentIndex]);
 
 	// check if there's data in the local storage
 	useEffect(() => {
@@ -49,29 +31,17 @@ function App() {
 		doThing();
 	}, [currentPlaylist]);
 
-	// resets the controls ui on empty audio list
-	useEffect(() => {
-		function doThing() {
-			if (currentPlaylist.playlist.length === 0) {
-				setCurrentTitle(null);
-				setCurrentLink(null);
-			}
-		}
-		doThing();
-	}, [currentPlaylist]);
-
 	return (
-		<div className="flex flex-row gap-5">
-			<Controls
-				currentAudio={currentLink}
-				currentTitle={currentTitle}
-				currentPerformer={currentPerformer}
-			/>
-			<SidePanel />
-			<div className="gap-2 m-5 w-[685px]">
-				<AddAudio />
+		<>
+			<div className="flex flex-row">
+				<SidePanel />
+				<div className="flex flex-col w-[50vw] h-[90vh] gap-[1vh] pt-[20px] pb-[5px]">
+					<AddAudio />
+					<AudioList />
+				</div>
 			</div>
-		</div>
+			<Controls />
+		</>
 	);
 }
 
