@@ -1,6 +1,6 @@
 import axios, { isAxiosError } from "axios";
 const api = "https://audio-playlist-ru.netlify.app/api";
-const BackEndURL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000/api";
+const BackEndURL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3099/api";
 
 export async function GetAudioInfo(url: string) {
 	try {
@@ -14,6 +14,7 @@ export async function GetAudioInfo(url: string) {
 			if (error.response?.status == 400) {
 				return null;
 			} else {
+				console.log(error);
 				throw error;
 			}
 		}

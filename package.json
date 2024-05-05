@@ -4,8 +4,8 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build && rm -rf .next/cache",
-		"start": "next start",
+		"build": "next build && rd /s ./next/cache",
+		"start": "next start -p 3099",
 		"lint": "next lint"
 	},
 	"dependencies": {

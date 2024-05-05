@@ -10,8 +10,8 @@ interface AudioArrayContextValue {
 const AudioArrayContext = createContext<AudioArrayContextValue | null>(null);
 
 export default function PlaylistProvider({ children }: { children: ReactNode }) {
-	const starterArray: IPlaylist = { name: "", playlist: [] };
-	const [currentPlaylist, setCurrentPlaylist] = useState<IPlaylist>(NewPlaylistTestData);
+	const starter_playlist: IPlaylist = { name: "", playlist: [] };
+	const [currentPlaylist, setCurrentPlaylist] = useState<IPlaylist>(starter_playlist);
 
 	useEffect(() => {
 		function doThing() {
@@ -30,7 +30,9 @@ export default function PlaylistProvider({ children }: { children: ReactNode }) 
 		doThing();
 	}, [currentPlaylist]);
 
-	return <AudioArrayContext.Provider value={{ currentPlaylist, setCurrentPlaylist }}>{children}</AudioArrayContext.Provider>;
+	return (
+		<AudioArrayContext.Provider value={{ currentPlaylist, setCurrentPlaylist }}>{children}</AudioArrayContext.Provider>
+	);
 }
 
 export function usePlaylistContext() {
